@@ -1,5 +1,6 @@
 import React from 'react';
 import { Shield, Heart, Calendar } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 function SafetyNotice() {
   return (
@@ -40,6 +41,12 @@ function CrisisSupport() {
 }
 
 function TherapistBooking() {
+  const navigate = useNavigate();
+
+  const handleBooking = () => {
+    navigate('/support/book-appointment');
+  };
+
   return (
     <div className="bg-white p-8 rounded-2xl shadow-lg mb-16">
       <div className="max-w-3xl mx-auto text-center">
@@ -65,7 +72,10 @@ function TherapistBooking() {
             <p className="text-fuchsia-600 font-semibold">60 minutes</p>
           </div>
         </div>
-        <button className="bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white px-8 py-4 rounded-full hover:from-fuchsia-700 hover:to-pink-700 transition">
+        <button 
+          onClick={handleBooking}
+          className="bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white px-8 py-4 rounded-full hover:from-fuchsia-700 hover:to-pink-700 transition"
+        >
           Schedule Appointment
         </button>
       </div>

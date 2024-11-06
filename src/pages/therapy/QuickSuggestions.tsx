@@ -1,67 +1,207 @@
-import React from 'react';
-import { Sparkles, Heart, Brain, Wind, Coffee } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Brain, Loader2, ArrowLeft } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import Papa from 'papaparse';
+
+interface Column {
+  name: string;
+  type: 'categorical';
+  options: string[];
+}
+
+interface DataRow {
+  [key: string]: string;
+  'Self-care tips that might help you out': string;
+}
+
+function LoadingSpinner() {
+  return (
+    <div className="flex items-center justify-center p-4">
+      <Loader2 className="h-6 w-6 animate-spin text-purple-600" />
+    </div>
+  );
+}
 
 export default function QuickSuggestions() {
+  const [columns, setColumns] = useState<Column[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [prediction, setPrediction] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [mlData, setMlData] = useState<DataRow[]>([]);
+
+  const form = useForm({
+    defaultValues: {},
+  });
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const response = await fetch('/data.csv');
+        const csvText = await response.text();
+        
+        const parsedData = Papa.parse(csvText, { 
+          header: true,
+          skipEmptyLines: true,
+          transform: (value) => value.trim()
+        });
+        
+        const data = parsedData.data as DataRow[];
+        setMlData(data);
+        
+        if (!data.length) {
+          throw new Error('No data found');
+        }
+
+        const headers = Object.keys(data[0]).filter(header => 
+          header !== 'Self-care tips that might help you out'
+        );
+        
+        const columnInfo = headers.map(colname => {
+          const uniqueValues = new Set<string>();
+          for (const row of data) {
+            if (row[colname]) uniqueValues.add(row[colname]);
+          }
+          
+          return {
+            name: colname,
+            type: 'categorical' as const,
+            options: Array.from(uniqueValues).sort()
+          };
+        });
+
+        setColumns(columnInfo);
+        
+        const defaultValues: Record<string, string> = {};
+        columnInfo.forEach((column: Column) => {
+          defaultValues[column.name] = "";
+        });
+
+        form.reset(defaultValues);
+      } catch (err) {
+        setError('Failed to load form data');
+        console.error('Error loading data:', err);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  const findBestMatch = (userInput: Record<string, string>): DataRow => {
+    let bestMatch = mlData[0];
+    let maxScore = -1;
+    
+    const inputEntries = Object.entries(userInput);
+    const totalFields = inputEntries.length;
+    
+    for (const row of mlData) {
+      let score = 0;
+      
+      for (const [key, value] of inputEntries) {
+        if (row[key] === value) {
+          score++;
+        }
+      }
+      
+      const normalizedScore = score / totalFields;
+      
+      if (normalizedScore > maxScore) {
+        maxScore = normalizedScore;
+        bestMatch = row;
+      }
+    }
+    
+    return bestMatch;
+  };
+
+  const onSubmit = async (values: Record<string, string>) => {
+    setLoading(true);
+    setPrediction(null);
+    setError(null);
+
+    try {
+      const bestMatch = findBestMatch(values);
+      setPrediction(bestMatch['Self-care tips that might help you out']);
+    } catch (err) {
+      setError('Failed to generate recommendation');
+      console.error('Prediction error:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (columns.length === 0) {
+    return (
+      <div className="w-full min-h-screen bg-gradient-to-b from-white to-purple-50 pt-20">
+        <div className="max-w-2xl mx-auto p-6 bg-white rounded-2xl shadow-xl">
+          <div className="flex items-center gap-2 mb-4">
+            <Brain className="h-6 w-6 text-purple-600" />
+            <h1 className="text-2xl font-bold text-purple-900">Quick Self-Care Tips</h1>
+          </div>
+          <p className="text-purple-700 mb-6">Loading your personalized experience...</p>
+          <LoadingSpinner />
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="pt-24 min-h-screen bg-gradient-to-b from-white to-purple-50">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <Sparkles className="h-16 w-16 text-purple-600 mx-auto mb-4" />
-          <h1 className="text-4xl font-bold mb-4">Quick Suggestions</h1>
-          <p className="text-xl text-gray-600">Simple activities to boost your mood right now</p>
+    <div className="w-full min-h-screen bg-gradient-to-b from-white to-purple-50 pt-20">
+      <div className="max-w-2xl mx-auto p-6 bg-white rounded-2xl shadow-xl">
+        <Link 
+          to="/therapy" 
+          className="inline-flex items-center text-purple-600 hover:text-purple-700 mb-6"
+        >
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          Back to Therapy Options
+        </Link>
+
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-2">
+            <Brain className="h-6 w-6 text-purple-600" />
+            <h1 className="text-2xl font-bold text-purple-900">Quick Self-Care Tips</h1>
+          </div>
+          <p className="text-purple-700">Answer these questions to get personalized self-care recommendations.</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {[
-            {
-              icon: Heart,
-              title: 'Take 5 Deep Breaths',
-              description: 'Focus on your breathing for instant calm',
-              time: '1 min'
-            },
-            {
-              icon: Brain,
-              title: 'Quick Meditation',
-              description: 'A short guided meditation session',
-              time: '5 mins'
-            },
-            {
-              icon: Wind,
-              title: 'Stretch Break',
-              description: 'Simple stretches to release tension',
-              time: '3 mins'
-            },
-            {
-              icon: Coffee,
-              title: 'Mindful Break',
-              description: 'Take a moment to enjoy a drink mindfully',
-              time: '5 mins'
-            }
-          ].map((activity) => {
-            const Icon = activity.icon;
-            return (
-              <div key={activity.title} className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition">
-                <Icon className="h-12 w-12 text-purple-600 mb-4" />
-                <h3 className="text-xl font-semibold mb-2">{activity.title}</h3>
-                <p className="text-gray-600 mb-4">{activity.description}</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-purple-600">{activity.time}</span>
-                  <button className="px-4 py-2 bg-purple-100 text-purple-600 rounded-full hover:bg-purple-200 transition">
-                    Start Now
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-8 rounded-2xl shadow-lg text-white mb-16">
-          <h2 className="text-2xl font-semibold mb-4">Need More Support?</h2>
-          <p className="mb-6">Our counselors are available 24/7 to help you through difficult moments.</p>
-          <button className="bg-white text-purple-600 px-6 py-3 rounded-full hover:bg-gray-100 transition">
-            Talk to Someone Now
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          {columns.map((column) => (
+            <div key={column.name} className="space-y-2">
+              <label className="block text-sm font-medium text-purple-800">
+                {column.name}
+              </label>
+              <select
+                {...form.register(column.name)}
+                className="w-full px-3 py-2 bg-white border border-purple-200 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              >
+                <option value="">Select an option</option>
+                {column.options.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ))}
+          
+          <button 
+            type="submit" 
+            disabled={loading}
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-200 flex items-center justify-center gap-2 disabled:opacity-50"
+          >
+            {loading && <Loader2 className="h-4 w-4 animate-spin" />}
+            Get Recommendation
           </button>
-        </div>
+        </form>
+
+        {(prediction || error) && (
+          <div className={`mt-6 p-4 rounded-lg ${error ? 'bg-red-50 border border-red-200 text-red-800' : 'bg-purple-50 border border-purple-200 text-purple-800'}`}>
+            <h3 className="font-semibold mb-2">
+              {error ? 'Error' : 'Recommended Self-Care Tip'}
+            </h3>
+            <p>{error || prediction}</p>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Brain, User, Settings, LogOut } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Navbar() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  // You would typically get this from your auth context/state management
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // For demo purposes
+  const { user, logout } = useAuth();
 
   return (
     <nav className="fixed w-full bg-white shadow-sm z-50 border-b">
@@ -39,30 +39,30 @@ export default function Navbar() {
               Therapy
             </Link>
 
-            {!isAuthenticated ? (
+            {!user ? (
               <Link 
-              to="/signin"
-              className="bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white px-4 py-2 rounded-full hover:from-fuchsia-700 hover:to-pink-700 transition"
-            >
-              Sign In
-            </Link>
+                to="/signin"
+                className="bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white px-4 py-2 rounded-full hover:from-fuchsia-700 hover:to-pink-700 transition"
+              >
+                Sign In
+              </Link>
             ) : null}
             
             {/* Profile Button */}
             <div className="relative">
               <button
-                onClick={() => isAuthenticated && setIsProfileOpen(!isProfileOpen)}
+                onClick={() => user && setIsProfileOpen(!isProfileOpen)}
                 className={`flex items-center justify-center h-8 w-8 rounded-full transition-all duration-200
-                  ${isAuthenticated 
+                  ${user 
                     ? 'bg-fuchsia-100 hover:bg-fuchsia-200 ring-2 ring-fuchsia-500 ring-offset-2' 
                     : 'bg-gray-100 cursor-not-allowed opacity-50'
                   }`}
               >
-                <User className={`h-5 w-5 ${isAuthenticated ? 'text-fuchsia-600' : 'text-gray-400'}`} />
+                <User className={`h-5 w-5 ${user ? 'text-fuchsia-600' : 'text-gray-400'}`} />
               </button>
 
               {/* Profile Dropdown - Only shown when authenticated and dropdown is open */}
-              {isAuthenticated && isProfileOpen && (
+              {user && isProfileOpen && (
                 <div 
                   className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border"
                   onClick={() => setIsProfileOpen(false)}
@@ -83,10 +83,7 @@ export default function Navbar() {
                   </Link>
                   <hr className="my-1" />
                   <button
-                    onClick={() => {
-                      // Add logout logic here
-                      setIsAuthenticated(false); // For demo purposes
-                    }}
+                    onClick={logout}
                     className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
                   >
                     <LogOut className="h-4 w-4 mr-3" />

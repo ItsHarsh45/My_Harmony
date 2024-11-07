@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Brain, User, Settings, LogOut } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuthStore } from '../stores/useAuthStore';
 
 export default function Navbar() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const { user, logout } = useAuth();
+  const { user, logout } = useAuthStore();
 
   return (
     <nav className="fixed w-full bg-white shadow-sm z-50 border-b">

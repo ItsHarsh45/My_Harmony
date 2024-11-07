@@ -1,27 +1,25 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, UserPlus } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuthStore } from '../stores/useAuthStore';
 
 export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const { signup } = useAuth();
+  const { signup, loading } = useAuthStore();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    setIsLoading(true);
 
     try {
       await signup(email, password, name);
+      navigate('/');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to create account');
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -89,10 +87,10 @@ export default function SignUp() {
 
           <button
             type="submit"
-            disabled={isLoading}
+            disabled={loading}
             className="w-full bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-white py-3 rounded-lg font-medium hover:from-violet-700 hover:via-fuchsia-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-fuchsia-500 focus:ring-offset-2 transition-all duration-300 flex items-center justify-center gap-2"
           >
-            {isLoading ? (
+            {loading ? (
               <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
             ) : (
               <>

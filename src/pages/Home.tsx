@@ -22,7 +22,7 @@ export default function Home() {
             Welcome to your cool corner of the internet! A judgment-free zone where you can be yourself, find support, and connect with others who get it. 
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link to="/get-started" 
+            <Link to="/signup" 
               className="group bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-white px-8 py-4 rounded-full text-lg font-medium hover:shadow-xl transition-all duration-300 flex items-center gap-2 hover:scale-105">
               Join the Squad <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Link>
@@ -86,7 +86,7 @@ export default function Home() {
             <div className="flex-1 relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-300" />
               <img 
-                src="https://www.hindustantimes.com/ht-img/img/2024/01/04/1600x900/indoor_exercise_thumb_1664685662988_1704363105791.jpg"
+                src="https://s3.envato.com/files/369147749/DSC_569_30.06.2021.jpg"
                 alt="Teens enjoying activities"
                 className="relative rounded-2xl shadow-xl transition duration-300 group-hover:scale-105"
               />
@@ -101,15 +101,12 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 text-center relative">
           <h2 className="text-4xl font-bold mb-6">Ready to Level Up? 🚀</h2>
           <p className="text-xl mb-8 opacity-90">Join thousands of teens who are already part of our awesome community!</p>
-          <Link to="/get-started" 
+          <Link to="/signup" 
             className="bg-white text-fuchsia-600 px-8 py-4 rounded-full text-lg font-medium hover:bg-gray-50 transition-all duration-300 inline-block hover:scale-105 hover:shadow-xl">
             Let's Do This! 
           </Link>
         </div>
       </section>
-
-      {/* Chat Button */}
-      <ChatButton />
     </div>
   );
 }

@@ -45,7 +45,7 @@ const therapyOptions = [
   },
   {
     icon: Shield,
-    title: 'SOS Tips',
+    title: 'Instant Vibe',
     description: 'Need immediate support? Quick tips for tough moments 🆘',
     link: '/therapy/sos',
     gradient: 'from-red-50 to-orange-50',

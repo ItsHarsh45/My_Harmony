@@ -12,7 +12,7 @@ const breathingExercise = {
 const moodBoosterActivities = [
   "Listen to your favorite upbeat song 🎵",
   "Text a friend you trust 💬",
-  "Watch funny TikToks or memes 😄",
+  "Watch funny yt shorts or memes 😄",
   "Step outside for fresh air 🌳",
   "Hug a pet or soft pillow 🐱",
   "Draw or doodle your feelings 🎨",
@@ -130,7 +130,7 @@ export default function SOSTips() {
         <div className="text-center mb-12 transform hover:scale-105 transition-transform duration-300">
           <Shield className="h-16 w-16 text-red-600 mx-auto mb-4 animate-pulse" />
           <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-pink-600">
-            SOS Tips
+            Instant Vibe
           </h1>
           <p className="text-xl text-gray-600">Quick ways to feel better when things get tough 💪</p>
           {streakCount > 0 && (

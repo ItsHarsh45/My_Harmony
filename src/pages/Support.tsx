@@ -10,7 +10,7 @@ function SafetyNotice() {
         <h2 className="text-2xl font-semibold">Safety Notice</h2>
       </div>
       <p className="text-lg opacity-90">
-        If you or someone you know is in immediate danger, please call emergency services (911) immediately. 
+        If you or someone you know is in immediate danger, please call emergency services (112) immediately. 
         Your safety is our top priority.
       </p>
     </div>

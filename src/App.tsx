@@ -41,13 +41,13 @@ function App() {
         <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
         <Route path="/support" element={<Support />} />
         <Route path="/therapy" element={<Therapy />} />
-        <Route path="/therapy/sos" element={<SOSTips />} />
-        <Route path="/therapy/music" element={<MusicTherapy />} />
-        <Route path="/therapy/art" element={<ArtTherapy />} />
-        <Route path="/therapy/journal" element={<Journaling />} />
-        <Route path="/therapy/mood" element={<MoodTracker />} />
-        <Route path="/support/book-appointment" element={<BookAppointment />} />
-        <Route path="/therapy/suggestions" element={<QuickSuggestions />} />
+        <Route path="/therapy/sos" element={<PrivateRoute><SOSTips /></PrivateRoute>} />
+        <Route path="/therapy/music" element={<PrivateRoute><MusicTherapy /></PrivateRoute>} />
+        <Route path="/therapy/art" element={<PrivateRoute><ArtTherapy /></PrivateRoute>} />
+        <Route path="/therapy/journal" element={<PrivateRoute><Journaling /></PrivateRoute>} />
+        <Route path="/therapy/mood" element={<PrivateRoute><MoodTracker /></PrivateRoute>} />
+        <Route path="/support/book-appointment" element={<PrivateRoute><BookAppointment /></PrivateRoute>} />
+        <Route path="/therapy/suggestions" element={<PrivateRoute><QuickSuggestions /></PrivateRoute>} />
       </Routes>
     </Router>
   );

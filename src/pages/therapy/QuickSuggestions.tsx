@@ -29,10 +29,21 @@ export default function QuickSuggestions() {
   const [prediction, setPrediction] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [mlData, setMlData] = useState<DataRow[]>([]);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const form = useForm({
     defaultValues: {},
+    mode: 'onChange'
   });
+
+  const { watch, formState: { isValid } } = form;
+  const formValues = watch();
+
+  useEffect(() => {
+    // Check if all fields have values
+    const allFieldsFilled = columns.every(column => formValues[column.name]?.trim());
+    setIsFormValid(allFieldsFilled);
+  }, [formValues, columns]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -87,17 +98,20 @@ export default function QuickSuggestions() {
     loadData();
   }, []);
 
-  const findBestMatch = (userInput: Record<string, string>): DataRow => {
-    let bestMatch = mlData[0];
-    let maxScore = -1;
+  const findBestMatch = (userInput: Record<string, string>): DataRow | null => {
+    const validInputs = Object.entries(userInput).filter(([_, value]) => value.trim());
     
-    const inputEntries = Object.entries(userInput);
-    const totalFields = inputEntries.length;
+    if (validInputs.length === 0) return null;
+
+    let bestMatches: DataRow[] = [];
+    let highestScore = 0;
+    
+    const totalFields = validInputs.length;
     
     for (const row of mlData) {
       let score = 0;
       
-      for (const [key, value] of inputEntries) {
+      for (const [key, value] of validInputs) {
         if (row[key] === value) {
           score++;
         }
@@ -105,13 +119,25 @@ export default function QuickSuggestions() {
       
       const normalizedScore = score / totalFields;
       
-      if (normalizedScore > maxScore) {
-        maxScore = normalizedScore;
-        bestMatch = row;
+      if (normalizedScore > highestScore) {
+        highestScore = normalizedScore;
+        bestMatches = [row];
+      } else if (normalizedScore === highestScore) {
+        bestMatches.push(row);
       }
     }
     
-    return bestMatch;
+    if (bestMatches.length === 0) return null;
+    
+    // Sort matches by a consistent criterion instead of random selection
+    return bestMatches.sort((a, b) => {
+      // First sort by the recommendation text
+      const tipA = a['Self-care tips that might help you out'];
+      const tipB = b['Self-care tips that might help you out'];
+      
+      // Compare the tips lexicographically
+      return tipA.localeCompare(tipB);
+    })[0]; // Take the first match after sorting
   };
 
   const onSubmit = async (values: Record<string, string>) => {
@@ -121,6 +147,12 @@ export default function QuickSuggestions() {
 
     try {
       const bestMatch = findBestMatch(values);
+      
+      if (!bestMatch) {
+        setError('No matching recommendations found. Please try different selections.');
+        return;
+      }
+      
       setPrediction(bestMatch['Self-care tips that might help you out']);
     } catch (err) {
       setError('Failed to generate recommendation');
@@ -171,7 +203,7 @@ export default function QuickSuggestions() {
                 {column.name}
               </label>
               <select
-                {...form.register(column.name)}
+                {...form.register(column.name, { required: true })}
                 className="w-full px-3 py-2 bg-white border border-purple-200 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
               >
                 <option value="">Select an option</option>
@@ -186,7 +218,7 @@ export default function QuickSuggestions() {
           
           <button 
             type="submit" 
-            disabled={loading}
+            disabled={loading || !isFormValid}
             className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-200 flex items-center justify-center gap-2 disabled:opacity-50"
           >
             {loading && <Loader2 className="h-4 w-4 animate-spin" />}

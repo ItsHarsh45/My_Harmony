@@ -1,34 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BookOpen, Calendar, Clock, Save, Search, ArrowLeft } from 'lucide-react';
+import { useJournalStore } from '../../stores/useJournalStore';
+import { useAuthStore } from '../../stores/useAuthStore';
+import { useNavigate } from 'react-router-dom';
 
 export default function Journaling() {
+  const { user } = useAuthStore();
+  const { entries, addEntry, loadEntries, loading, error } = useJournalStore();
+  const navigate = useNavigate();
+  
   const [currentEntry, setCurrentEntry] = useState('');
   const [mood, setMood] = useState('');
-  const [entries, setEntries] = useState([
-    {
-      id: 1,
-      date: '2024-03-30',
-      time: '2:30 PM',
-      content: 'Today was quite productive. I managed to complete all my pending tasks and even had time for a short walk in the evening. The weather was perfect, and I felt really energized throughout the day.',
-      mood: '😊 Happy'
-    },
-    {
-      id: 2,
-      date: '2024-03-29',
-      time: '7:45 PM',
-      content: 'Reflecting on today, I realized how much progress I\'ve made this month. Despite the challenges, I\'m staying focused on my goals.',
-      mood: '✨ Productive'
-    },
-    {
-      id: 3,
-      date: '2024-03-28',
-      time: '9:15 AM',
-      content: 'Woke up feeling refreshed after a good night\'s sleep. Morning meditation really helps set a positive tone for the day.',
-      mood: '😌 Calm'
-    }
-  ]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedEntry, setSelectedEntry] = useState(null);
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/signin');
+      return;
+    }
+    loadEntries().catch(console.error);
+  }, [user, navigate, loadEntries]);
 
   const currentDate = new Date().toLocaleDateString('en-US', {
     year: 'numeric',
@@ -41,19 +33,20 @@ export default function Journaling() {
     minute: '2-digit'
   });
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (currentEntry.trim()) {
-      const newEntry = {
-        id: Date.now(),
-        date: new Date().toISOString().split('T')[0],
-        time: currentTime,
-        content: currentEntry,
-        mood: mood
-      };
-      setEntries([newEntry, ...entries]);
-      setCurrentEntry('');
-      setMood('');
-      alert('Entry saved successfully!');
+      try {
+        await addEntry({
+          content: currentEntry,
+          mood: mood,
+          date: new Date().toISOString()
+        });
+        setCurrentEntry('');
+        setMood('');
+        alert('Entry saved successfully!');
+      } catch (err) {
+        alert('Failed to save entry: ' + err.message);
+      }
     }
   };
 
@@ -71,6 +64,14 @@ export default function Journaling() {
     });
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-amber-600 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-amber-50">
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -78,6 +79,12 @@ export default function Journaling() {
           <BookOpen className="h-16 w-16 text-amber-600 mx-auto mb-4" />
           <h1 className="text-4xl font-bold mb-4">Daily Journal</h1>
           <p className="text-xl text-gray-600">Reflect, Record, Remember</p>
+          
+          {error && (
+            <div className="mt-4 p-4 bg-red-50 text-red-600 rounded-lg">
+              {error}
+            </div>
+          )}
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 mb-16">
@@ -97,10 +104,6 @@ export default function Journaling() {
                   <div className="flex items-center gap-2">
                     <Calendar className="h-5 w-5 text-amber-600" />
                     <span className="text-gray-600">{formatDate(selectedEntry.date)}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-5 w-5 text-amber-600" />
-                    <span className="text-gray-600">{selectedEntry.time}</span>
                   </div>
                 </div>
                 <div className="mb-4">
@@ -150,14 +153,20 @@ export default function Journaling() {
 
                 <button
                   onClick={handleSave}
-                  disabled={!currentEntry.trim()}
+                  disabled={!currentEntry.trim() || loading}
                   className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl transition
-                    ${currentEntry.trim() 
+                    ${currentEntry.trim() && !loading
                       ? 'bg-amber-600 text-white hover:bg-amber-700' 
                       : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}
                 >
-                  <Save className="h-5 w-5" />
-                  Save Entry
+                  {loading ? (
+                    <div className="w-6 h-6 border-2 border-amber-600 border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <>
+                      <Save className="h-5 w-5" />
+                      Save Entry
+                    </>
+                  )}
                 </button>
               </div>
             )}

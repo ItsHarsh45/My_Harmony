@@ -1,6 +1,7 @@
+// firebase.ts
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, collection, query, where, orderBy, limit } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCR1UV4jDO4-1HYFr1nVMmcVO8uO3L-Lls",
@@ -15,3 +16,28 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+// Constants
+export const ENTRIES_PER_PAGE = 10;
+
+// Journal collection reference
+export const journalRef = collection(db, 'journal');
+
+// Fallback query without ordering (for when index is building)
+export const getFallbackJournalEntries = (userId: string, pageSize: number = ENTRIES_PER_PAGE) => {
+  return query(
+    journalRef,
+    where('userId', '==', userId),
+    limit(pageSize)
+  );
+};
+
+// Main query with ordering (requires index)
+export const getJournalEntries = (userId: string, pageSize: number = ENTRIES_PER_PAGE) => {
+  return query(
+    journalRef,
+    where('userId', '==', userId),
+    orderBy('createdAt', 'desc'),
+    limit(pageSize)
+  );
+};

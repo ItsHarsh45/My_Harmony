@@ -3,6 +3,46 @@ import { User, Mail, Calendar, Shield, Edit2, Brain, ArrowRight, Clock, AlertCir
 import { useAuthStore } from '../stores/useAuthStore';
 import { useAppointmentStore } from '../stores/useAppointmentStore';
 
+interface Therapist {
+  id: number;
+  name: string;
+  title: string;
+  specialty: string;
+}
+
+const therapists: Therapist[] = [
+  {
+    id: 1,
+    name: 'Dr. Sarah Johnson',
+    title: 'Child & Adolescent Psychiatrist',
+    specialty: 'Anxiety & Depression in Teens'
+  },
+  {
+    id: 2,
+    name: 'Dr. Michael Chen',
+    title: 'Adolescent Psychologist',
+    specialty: 'Teen Identity & Social Issues'
+  },
+  {
+    id: 3,
+    name: 'Dr. Emily Rodriguez',
+    title: 'Teen Trauma Specialist',
+    specialty: 'Trauma & Resilience Building'
+  },
+  {
+    id: 4,
+    name: 'Dr. Aisha Patel',
+    title: 'Youth Mental Health Specialist',
+    specialty: 'Digital Age Mental Health'
+  },
+  {
+    id: 5,
+    name: 'Dr. James Wilson',
+    title: 'Adolescent Behavioral Specialist',
+    specialty: 'ADHD & Executive Functioning'
+  }
+];
+
 interface Appointment {
   id: string;
   therapistId: string;
@@ -52,9 +92,15 @@ export default function Profile() {
     return aptDate < currentDate || apt.status === 'completed' || apt.status === 'cancelled';
   });
 
+  const getTherapistInfo = (therapistId: string) => {
+    const therapist = therapists.find(t => t.id === parseInt(therapistId));
+    return therapist || { name: 'Unknown Therapist', title: '', specialty: '' };
+  };
+
   const renderAppointmentCard = (appointment: Appointment) => {
     const aptDate = new Date(`${appointment.date} ${appointment.time}`);
     const isUpcoming = aptDate >= currentDate;
+    const therapist = getTherapistInfo(appointment.therapistId);
     
     return (
       <div 
@@ -62,8 +108,8 @@ export default function Profile() {
         className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:border-fuchsia-200 transition-colors"
       >
         <div className="flex items-start justify-between">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
               <Clock className="h-5 w-5 text-fuchsia-600" />
               <span className="font-medium">
                 {aptDate.toLocaleDateString('en-US', {
@@ -75,6 +121,11 @@ export default function Profile() {
               </span>
             </div>
             <p className="text-gray-600">{appointment.time}</p>
+            <div className="space-y-1">
+              <p className="font-medium text-gray-900">{therapist.name}</p>
+              <p className="text-sm text-gray-500">{therapist.title}</p>
+              <p className="text-sm text-fuchsia-600">{therapist.specialty}</p>
+            </div>
           </div>
           <span className={`px-3 py-1 rounded-full text-sm ${
             appointment.status === 'scheduled' ? 'bg-green-100 text-green-700' :

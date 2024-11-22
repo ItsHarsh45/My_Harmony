@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Heart, Users, MessageCircle, Moon, Sun, Sparkles, Star, Music, Gamepad } from 'lucide-react';
+import { ArrowRight, Heart, Users, MessageCircle, Moon, Sun, Sparkles, Star, Music, Gamepad, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ChatButton from '../components/ChatButton';
 
@@ -70,8 +70,8 @@ export default function Home() {
               </p>
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm border border-violet-100 hover:shadow-md transition-all duration-300 hover:scale-105">
-                  <Moon className="h-5 w-5 text-violet-600" />
-                  <span className="text-violet-600">Sleep Score</span>
+                <BookOpen className="h-5 w-5 text-violet-600" />
+                <span className="text-violet-600">Daily Journal</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm border border-fuchsia-100 hover:shadow-md transition-all duration-300 hover:scale-105">
                   <Music className="h-5 w-5 text-fuchsia-600" />

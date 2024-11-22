@@ -1,10 +1,10 @@
 import React from 'react';
-import { Shield, Heart, Calendar } from 'lucide-react';
+import { Shield, Heart, Calendar, MessageSquare, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 function SafetyNotice() {
   return (
-    <div className="bg-gradient-to-r from-fuchsia-600 to-pink-600 p-8 rounded-2xl shadow-lg text-white mb-16">
+    <div className="bg-gradient-to-r from-fuchsia-600 to-pink-600 p-8 rounded-2xl text-white mb-16">
       <div className="flex items-center gap-4 mb-6">
         <Shield className="h-12 w-12" />
         <h2 className="text-2xl font-semibold">Safety Notice</h2>
@@ -19,7 +19,7 @@ function SafetyNotice() {
 
 function CrisisSupport() {
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-lg mb-16">
+    <div className="bg-white p-8 rounded-2xl mb-16">
       <div className="max-w-3xl mx-auto">
         <Heart className="h-12 w-12 text-purple-600 mb-4" />
         <h2 className="text-2xl font-semibold mb-4">Crisis Support</h2>
@@ -40,6 +40,59 @@ function CrisisSupport() {
   );
 }
 
+function ChatbotSupport() {
+  const navigate = useNavigate();
+
+  const handleStartChat = () => {
+    navigate('/support/chat');
+  };
+
+  return (
+    <div className="fixed bottom-6 right-12 z-50">
+      <div className="relative group">
+        <div className="absolute -inset-[2px] bg-gradient-to-r from-fuchsia-600/50 via-pink-500/50 to-fuchsia-600/50 rounded-2xl blur-lg opacity-0 group-hover:opacity-75 transition-all duration-300 group-hover:animate-glow-pulse"></div>
+        <div className="relative bg-white p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer hover:scale-102 transition-transform duration-300" onClick={handleStartChat}>
+          <div className="relative">
+            <MessageSquare className="h-10 w-10 text-gray-700" />
+            <Sparkles className="h-4 w-4 text-fuchsia-400 absolute -top-1 -right-1 animate-pulse" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h3 className="font-semibold text-gray-800">AI Assistant</h3>
+              <span className="px-2 py-0.5 rounded-full bg-green-100 text-green-600 text-xs font-medium flex items-center gap-1">
+                <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                Online
+              </span>
+            </div>
+            <p className="text-sm text-gray-500">Get instant support 24/7</p>
+          </div>
+        </div>
+      </div>
+      
+      <style jsx>{`
+        @keyframes glow-pulse {
+          0% {
+            opacity: 0.5;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.75;
+            transform: scale(1.02);
+          }
+          100% {
+            opacity: 0.5;
+            transform: scale(1);
+          }
+        }
+
+        .animate-glow-pulse {
+          animation: glow-pulse 2s ease-in-out infinite;
+        }
+      `}</style>
+    </div>
+  );
+}
+
 function TherapistBooking() {
   const navigate = useNavigate();
 
@@ -48,35 +101,34 @@ function TherapistBooking() {
   };
 
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-lg mb-16">
+    <div className="bg-white p-8 rounded-2xl mb-16">
       <div className="max-w-3xl mx-auto text-center">
         <Calendar className="h-16 w-16 text-fuchsia-600 mx-auto mb-4" />
         <h2 className="text-3xl font-bold mb-4">Book a Session with a Therapist</h2>
         <p className="text-gray-600 mb-8">
           Connect with licensed professionals who specialize in teen mental health and well-being.
         </p>
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
-          <div className="p-6 bg-fuchsia-50 rounded-xl">
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <div className="p-6 bg-gradient-to-br from-violet-500 to-purple-500 rounded-xl text-white">
             <h3 className="font-semibold mb-2">Individual Session</h3>
-            <p className="text-gray-600 mb-4">One-on-one therapy</p>
-            <p className="text-fuchsia-600 font-semibold">45 minutes</p>
+            <p className="text-white/90 mb-4">One-on-one therapy</p>
+            <p className="font-semibold">40 minutes</p>
           </div>
-          <div className="p-6 bg-fuchsia-50 rounded-xl">
-            <h3 className="font-semibold mb-2">Group Session</h3>
-            <p className="text-gray-600 mb-4">Peer support group</p>
-            <p className="text-fuchsia-600 font-semibold">60 minutes</p>
-          </div>
-          <div className="p-6 bg-fuchsia-50 rounded-xl">
+          <div className="p-6 bg-gradient-to-br from-fuchsia-500 to-pink-500 rounded-xl text-white">
             <h3 className="font-semibold mb-2">Family Session</h3>
-            <p className="text-gray-600 mb-4">Family therapy</p>
-            <p className="text-fuchsia-600 font-semibold">60 minutes</p>
+            <p className="text-white/90 mb-4">Family therapy</p>
+            <p className="font-semibold">60 minutes</p>
           </div>
         </div>
         <button 
           onClick={handleBooking}
-          className="bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white px-8 py-4 rounded-full hover:from-fuchsia-700 hover:to-pink-700 transition"
+          className="group bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95 relative overflow-hidden"
         >
-          Schedule Appointment
+          <span className="relative z-10 flex items-center justify-center gap-2">
+            Schedule Appointment
+            <Calendar className="h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
+          </span>
+          <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-fuchsia-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </button>
       </div>
     </div>
@@ -85,18 +137,22 @@ function TherapistBooking() {
 
 export default function Support() {
   return (
-    <div className="pt-24 min-h-screen bg-gradient-to-b from-white to-fuchsia-50">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-fuchsia-600 to-pink-600 text-transparent bg-clip-text">
-            Support Resources
-          </h1>
-          <p className="text-xl text-gray-600">Comprehensive support and resources for your mental wellness journey</p>
+    <div className="fixed inset-0 bg-gradient-to-b from-white to-fuchsia-100">
+      <div className="absolute inset-0 overflow-auto">
+        <div className="pt-24 min-h-full">
+          <div className="max-w-7xl mx-auto px-4 pb-16">
+            <div className="text-center mb-16">
+              <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-fuchsia-600 to-pink-600 text-transparent bg-clip-text">
+                Support Resources
+              </h1>
+              <p className="text-xl text-gray-600">Comprehensive support and resources for your mental wellness journey</p>
+            </div>
+            <SafetyNotice />
+            <CrisisSupport />
+            <TherapistBooking />
+            <ChatbotSupport />
+          </div>
         </div>
-
-        <SafetyNotice />
-        <CrisisSupport />
-        <TherapistBooking />
       </div>
     </div>
   );

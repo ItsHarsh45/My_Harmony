@@ -9,7 +9,8 @@ const therapyOptions = [
     description: 'Express yourself through music and sound healing',
     link: '/therapy/music',
     gradient: 'from-blue-50 to-purple-50',
-    iconColor: 'text-blue-600'
+    iconColor: 'text-blue-600',
+    borderColor: 'hover:border-blue-200'  // Added border color
   },
   {
     icon: Palette,
@@ -17,7 +18,8 @@ const therapyOptions = [
     description: 'Heal and grow through creative expression',
     link: '/therapy/art',
     gradient: 'from-pink-50 to-rose-50',
-    iconColor: 'text-pink-600'
+    iconColor: 'text-pink-600',
+    borderColor: 'hover:border-pink-200'
   },
   {
     icon: BookOpen,
@@ -25,7 +27,8 @@ const therapyOptions = [
     description: 'Document your journey and reflect on your growth',
     link: '/therapy/journal',
     gradient: 'from-amber-50 to-yellow-50',
-    iconColor: 'text-amber-600'
+    iconColor: 'text-amber-600',
+    borderColor: 'hover:border-amber-200'
   },
   {
     icon: Brain,
@@ -33,7 +36,8 @@ const therapyOptions = [
     description: 'Track and understand your emotional patterns',
     link: '/therapy/mood',
     gradient: 'from-green-50 to-emerald-50',
-    iconColor: 'text-green-600'
+    iconColor: 'text-green-600',
+    borderColor: 'hover:border-green-200'
   },
   {
     icon: Sparkles,
@@ -41,7 +45,8 @@ const therapyOptions = [
     description: 'Instant activities for emotional well-being',
     link: '/therapy/suggestions',
     gradient: 'from-purple-50 to-fuchsia-50',
-    iconColor: 'text-purple-600'
+    iconColor: 'text-purple-600',
+    borderColor: 'hover:border-purple-200'
   },
   {
     icon: Shield,
@@ -49,7 +54,8 @@ const therapyOptions = [
     description: 'Need immediate support? Quick tips for tough moments 🆘',
     link: '/therapy/sos',
     gradient: 'from-red-50 to-orange-50',
-    iconColor: 'text-red-600'
+    iconColor: 'text-red-600',
+    borderColor: 'hover:border-red-200'
   }
 ];
 
@@ -59,7 +65,7 @@ export default function Therapy() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-fuchsia-600 to-pink-600 text-transparent bg-clip-text">
-          Therapeutic Activities ✨
+            Therapeutic Activities ✨
           </h1>
           <p className="text-xl text-gray-600">Discover various ways to express yourself and find inner peace</p>
         </div>
@@ -71,7 +77,10 @@ export default function Therapy() {
               <Link 
                 key={option.title}
                 to={option.link}
-                className={`bg-gradient-to-br ${option.gradient} p-8 rounded-2xl hover:shadow-xl transition group hover:scale-105 duration-300`}
+                className={`bg-gradient-to-br ${option.gradient} p-8 rounded-2xl 
+                  hover:shadow-xl transition-all duration-300 hover:-translate-y-2 
+                  border-2 border-transparent ${option.borderColor}
+                  group`}
               >
                 <Icon className={`h-12 w-12 ${option.iconColor} mb-4 group-hover:scale-110 transition-transform`} />
                 <h3 className="text-xl font-semibold mb-2">{option.title}</h3>

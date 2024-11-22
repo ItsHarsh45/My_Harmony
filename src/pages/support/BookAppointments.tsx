@@ -49,6 +49,70 @@ const therapists: Therapist[] = [
     image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=300&h=300',
     specialFocus: ['Academic Stress', 'Social Anxiety', 'Depression', 'Self-Esteem'],
     sessionTypes: ['Individual Therapy', 'Family Sessions', 'Group Therapy'],
+  },
+  {
+    id: 2,
+    name: 'Dr. Michael Chen',
+    title: 'Adolescent Psychologist',
+    specialty: 'Teen Identity & Social Issues',
+    experience: '12 years experience',
+    education: 'PhD in Clinical Psychology from Yale',
+    certifications: ['Licensed Clinical Psychologist', 'LGBTQ+ Youth Counseling Certified'],
+    approach: 'My practice focuses on helping teenagers explore their identity, manage social relationships, and build self-confidence. I use a strengths-based approach combined with narrative therapy.',
+    ageGroups: '13-20 years',
+    languages: ['English', 'Mandarin'],
+    availability: 'Tue-Sat',
+    image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=300&h=300&fit=crop',
+    specialFocus: ['Identity Development', 'LGBTQ+ Youth', 'Peer Relationships', 'Cultural Issues'],
+    sessionTypes: ['Individual Therapy', 'Group Support Sessions'],
+  },
+  {
+    id: 3,
+    name: 'Dr. Emily Rodriguez',
+    title: 'Teen Trauma Specialist',
+    specialty: 'Trauma & Resilience Building',
+    experience: '10 years experience',
+    education: 'PsyD from Columbia University',
+    certifications: ['Trauma-Focused CBT Certified', 'EMDR Certified'],
+    approach: 'I help young people heal from trauma and build resilience through evidence-based treatments. My practice combines trauma-focused CBT with creative expression and mindfulness.',
+    ageGroups: '12-18 years',
+    languages: ['English', 'Spanish'],
+    availability: 'Mon-Thu',
+    image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=300&h=300&fit=crop',
+    specialFocus: ['Trauma Recovery', 'Anxiety', 'Family Conflicts', 'Emotional Regulation'],
+    sessionTypes: ['Individual Therapy', 'Family Therapy', 'Art Therapy'],
+  },
+  {
+    id: 4,
+    name: 'Dr. Aisha Patel',
+    title: 'Youth Mental Health Specialist',
+    specialty: 'Digital Age Mental Health',
+    experience: '8 years experience',
+    education: 'PhD in Clinical Psychology from UC Berkeley',
+    certifications: ['Digital Media & Youth Mental Health Certified', 'DBT Certified'],
+    approach: 'I specialize in helping teens navigate mental health challenges in the digital age, including social media impact, online relationships, and cyber-bullying.',
+    ageGroups: '12-20 years',
+    languages: ['English', 'Hindi', 'Gujarati'],
+    availability: 'Wed-Sun',
+    image: 'https://images.unsplash.com/photo-1589156191108-c762ff4b96ab?w=300&h=300&fit=crop',
+    specialFocus: ['Social Media Impact', 'Gaming Addiction', 'Cyberbullying', 'Digital Wellness'],
+    sessionTypes: ['Individual Therapy', 'Parent Consultations'],
+  },
+  {
+    id: 5,
+    name: 'Dr. James Wilson',
+    title: 'Adolescent Behavioral Specialist',
+    specialty: 'ADHD & Executive Functioning',
+    experience: '14 years experience',
+    education: 'PhD from Johns Hopkins University',
+    certifications: ['ADHD Specialist Certification', 'Behavioral Therapy Certified'],
+    approach: 'I help teens with ADHD and executive functioning challenges develop practical strategies for academic success and daily life management.',
+    ageGroups: '12-19 years',
+    languages: ['English'],
+    availability: 'Mon-Fri',
+    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop',
+    specialFocus: ['ADHD Management', 'Executive Functioning', 'Academic Skills', 'Behavior Management'],
+    sessionTypes: ['Individual Therapy', 'Skills Training', 'Parent-Teen Sessions'],
   }
 ];
 
@@ -359,7 +423,8 @@ function BookAppointment() {
                 <button
                   key={therapist.id}
                   onClick={() => handleTherapistSelect(therapist)}
-                  className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition text-left border-2 border-transparent hover:border-purple-200"
+                  className="bg-white p-6 rounded-2xl transition text-left border-2 border-transparent hover:border-purple-200"
+
                 >
                   <div className="flex items-start gap-4">
                     <img

@@ -12,7 +12,7 @@ import Profile from './pages/Profile';
 import Support from './pages/Support';
 import Therapy from './pages/Therapy';
 import MusicTherapy from './pages/therapy/MusicTherapy';
-import ArtTherapy from './pages/therapy/ArtTherapy';
+import { ArtTherapy } from './pages/therapy/ArtTherapy';
 import Journaling from './pages/therapy/Journaling';
 import MoodTracker from './pages/therapy/MoodTracker';
 import QuickSuggestions from './pages/therapy/QuickSuggestions';

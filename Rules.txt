@@ -1,0 +1,46 @@
+Rules for firebase db
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if user is authenticated
+    function isAuth() {
+      return request.auth != null;
+    }
+
+    // Helper function to check if user owns the document
+    function isOwner(userId) {
+      return isAuth() && userId == request.auth.uid;
+    }
+
+    // Rules for appointments collection
+    match /appointments/{appointmentId} {
+      // Allow read if user is authenticated
+      allow read: if isAuth();
+      
+      // Allow create if:
+      // 1. User is authenticated
+      // 2. User is creating appointment for themselves
+      // 3. Required fields are present and valid
+      allow create: if isAuth() 
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.therapistId is string
+        && request.resource.data.date is string
+        && request.resource.data.time is string
+        && request.resource.data.status == 'scheduled';
+      
+      // Allow update/delete if user owns the appointment
+      allow update, delete: if isOwner(resource.data.userId);
+    }
+
+    // Rules for journal entries collection
+    match /journal/{entryId} {
+      // Allow all operations if user owns the document
+      allow read, write: if isOwner(resource.data.userId);
+      
+      // Special case for create since resource.data doesn't exist yet
+      allow create: if isAuth() 
+        && request.resource.data.userId == request.auth.uid;
+    }
+  }
+}

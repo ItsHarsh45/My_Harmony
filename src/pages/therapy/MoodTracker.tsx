@@ -22,7 +22,7 @@ export default function MoodTracker() {
 
     const moodEmojis = { '😄': 5, '🙂': 4, '😐': 3, '😕': 2, '😢': 1 };
     const commonActivities = [
-        'Exercise 🏃‍♂️', 'Reading 📚', 'Meditation 🧘‍♂️', 'Social Time 👥',
+        'Exercise 🏃‍♂', 'Reading 📚', 'Meditation 🧘‍♂', 'Social Time 👥',
         'Work 💼', 'Hobbies 🎨', 'Nature 🌳', 'Music 🎵'
     ];
 
@@ -107,7 +107,7 @@ export default function MoodTracker() {
 
         if (streak > 1) {
             insights.push(`🎯 ${streak} day streak! Keep it up!`);
-        }
+        }        
 
         const happyDaysActivities = moodHistory
             .filter(entry => moodEmojis[entry.mood] > 3)
@@ -142,12 +142,10 @@ export default function MoodTracker() {
         const lastDay = new Date(year, month + 1, 0);
         const days = [];
         
-        // Add empty slots for days before the first of the month
         for (let i = 0; i < firstDay.getDay(); i++) {
             days.push(null);
         }
         
-        // Add all days in the month
         for (let i = 1; i <= lastDay.getDate(); i++) {
             days.push(new Date(year, month, i));
         }
@@ -285,16 +283,22 @@ export default function MoodTracker() {
                             <button
                                 onClick={() => setTimeOfDay('morning')}
                                 className={`flex-1 p-3 rounded-xl flex items-center justify-center gap-2 transition
-                                    ${timeOfDay === 'morning' ? 'bg-green-100' : 'bg-gray-50'}`}
+                                    ${timeOfDay === 'morning' 
+                                        ? 'bg-yellow-100 text-yellow-800' 
+                                        : 'bg-gray-50 hover:bg-yellow-50'}`}
                             >
-                                <Sun className="h-5 w-5" /> Morning
+                                <Sun className={`h-5 w-5 ${timeOfDay === 'morning' ? 'text-yellow-600' : ''}`} /> 
+                                Morning
                             </button>
                             <button
                                 onClick={() => setTimeOfDay('evening')}
                                 className={`flex-1 p-3 rounded-xl flex items-center justify-center gap-2 transition
-                                    ${timeOfDay === 'evening' ? 'bg-green-100' : 'bg-gray-50'}`}
+                                    ${timeOfDay === 'evening' 
+                                        ? 'bg-indigo-100 text-indigo-800' 
+                                        : 'bg-gray-50 hover:bg-indigo-50'}`}
                             >
-                                <Moon className="h-5 w-5" /> Evening
+                                <Moon className={`h-5 w-5 ${timeOfDay === 'evening' ? 'text-indigo-600' : ''}`} /> 
+                                Evening
                             </button>
                         </div>
 
@@ -304,91 +308,99 @@ export default function MoodTracker() {
                                     key={emoji}
                                     onClick={() => setSelectedMood(emoji)}
                                     className={`aspect-square text-4xl rounded-xl transition flex items-center justify-center
-                                        ${selectedMood === emoji ? 'bg-green-100' : 'bg-gray-50'}`}
+                                        ${selectedMood === emoji 
+                                            ? 'bg-green-100 scale-110 transform' 
+                                            : 'bg-gray-50 hover:bg-green-50'}`}
                                 >
                                     {emoji}
                                 </button>
                             ))}
                         </div>
 
-                        <div className="mb-6">
-                            <textarea
-                                value={notes}
-                                onChange={(e) => setNotes(e.target.value)}
-                                placeholder="Notes (Optional)"
-                                className="w-full p-3 rounded-xl bg-gray-50 outline-none resize-none"
-                                rows={3}
-                            ></textarea>
-                        </div>
+                        <textarea
+                            value={notes}
+                            onChange={(e) => setNotes(e.target.value)}
+                            placeholder="Add notes about your day..."
+                            className="w-full p-4 rounded-xl bg-gray-50 mb-6 h-32 resize-none"
+                        />
 
-                        <h3 className="text-lg font-semibold mb-2">Activities</h3>
-                        <div className="flex flex-wrap gap-2">
-                            {commonActivities.map((activity) => (
-                                <button
-                                    key={activity}
-                                    onClick={() => setActivities((prev) =>
-                                        prev.includes(activity)
-                                            ? prev.filter(a => a !== activity)
-                                            : [...prev, activity]
-                                    )}
-                                    className={`px-4 py-2 rounded-full transition
-                                        ${activities.includes(activity) ? 'bg-green-200' : 'bg-gray-50'}`}
-                                >
-                                    {activity}
-                                </button>
-                            ))}
+                        <div className="mb-6">
+                            <h3 className="text-lg font-semibold mb-3">Activities</h3>
+                            <div className="flex flex-wrap gap-2">
+                                {commonActivities.map((activity) => (
+                                    <button
+                                        key={activity}
+                                        onClick={() => setActivities(prev => 
+                                            prev.includes(activity) 
+                                                ? prev.filter(a => a !== activity)
+                                                : [...prev, activity]
+                                        )}
+                                        className={`px-4 py-2 rounded-lg transition
+                                            ${activities.includes(activity)
+                                                ? 'bg-green-100 text-green-800'
+                                                : 'bg-gray-50 hover:bg-green-50'}`}
+                                    >
+                                        {activity}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
                     </div>
 
                     <div className="bg-white p-8 rounded-2xl shadow-lg">
-                        <h2 className="text-2xl font-semibold mb-6">Insights</h2>
+                        <div className="flex items-center justify-between mb-6">
+                            <h2 className="text-2xl font-semibold">Insights</h2>
+                            <TrendingUp className="h-6 w-6 text-green-600" />
+                        </div>
 
-                        <div className="mb-8">
-                            <div className="flex items-center gap-3 mb-4">
-                                <BarChart className="h-6 w-6 text-green-600" />
-                                <span className="text-lg">Weekly Mood Chart</span>
-                            </div>
+                        <div className="grid gap-4">
+                            {generateInsights().map((insight, index) => (
+                                <div key={index} className="p-4 bg-green-50 rounded-xl">
+                                    {insight}
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="mt-6">
+                            <h3 className="text-lg font-semibold mb-4">Weekly Overview</h3>
                             <div className="grid grid-cols-7 gap-2">
-                                {Object.entries(getWeeklyMoods()).map(([day, moodValue]) => (
-                                    <div key={day} className="flex flex-col items-center">
-                                        <div className="w-8 h-8 bg-green-300 rounded-full flex items-center justify-center text-white font-semibold">
-                                            {day}
-                                        </div>
-                                        <div className="w-8 h-12 rounded-lg bg-green-200 mt-2 relative overflow-hidden">
+                                {Object.entries(getWeeklyMoods()).map(([day, value]) => (
+                                    <div key={day} className="text-center">
+                                        <div className="text-sm text-gray-600 mb-1">{day}</div>
+                                        <div 
+                                            className="w-full bg-green-100 rounded-lg"
+                                            style={{ height: '60px' }}
+                                        >
                                             <div
-                                                className="absolute bottom-0 bg-green-500 h-full transition"
-                                                style={{ height: `${moodValue}%` }}
-                                            ></div>
+                                                className="bg-green-500 rounded-lg transition-all duration-300"
+                                                style={{ 
+                                                    height: `${value}%`,
+                                                    minHeight: value > 0 ? '10%' : '0'
+                                                }}
+                                            />
                                         </div>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
-                        <div className="mb-8">
-                            <div className="flex items-center gap-3 mb-4">
-                                <TrendingUp className="h-6 w-6 text-green-600" />
-                                <span className="text-lg">Overall Mood</span>
+                        <div className="mt-6">
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="text-lg font-semibold">Average Mood</span>
+                                <span className="text-2xl">{calculateAverageMood()}%</span>
                             </div>
-                            <div className="text-4xl font-semibold text-green-600">
-                                {calculateAverageMood()}%
+                            <div className="w-full bg-gray-100 rounded-full h-4">
+                                <div
+                                    className="bg-green-500 rounded-full h-full transition-all duration-300"
+                                    style={{ width: `${calculateAverageMood()}%` }}
+                                />
                             </div>
-                            <p className="text-gray-600">Based on {moodHistory.length} entries</p>
-                        </div>
-
-                        <div>
-                            <h3 className="text-lg font-semibold mb-2">Observations</h3>
-                            <ul className="list-disc pl-5 space-y-1 text-gray-600">
-                                {generateInsights().map((insight, index) => (
-                                    <li key={index}>{insight}</li>
-                                ))}
-                            </ul>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {showCalendarView && <CalendarView />}
+                {showCalendarView && <CalendarView />}
+            </div>
         </div>
     );
 }

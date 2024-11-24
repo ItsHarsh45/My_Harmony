@@ -18,7 +18,7 @@ export default function ChatbotWindow({ isOpen, onClose }: ChatbotWindowProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'system',
-      content: "You are a supportive mental health chatbot. Keep your responses short, focused, and under 100 words. Provide clear, actionable support while maintaining empathy."
+      content: "You are a supportive mental health chatbot. Keep your responses brief, focused, and under 100 words. Provide clear, actionable support while maintaining empathy."
     },
     {
       role: 'assistant',
@@ -56,8 +56,7 @@ export default function ChatbotWindow({ isOpen, onClose }: ChatbotWindowProps) {
           })),
           { 
             role: 'user', 
-            content: userMessage + "\n\nRemember to keep your response short, supportive, and focused on mental health support. Use appropriate emojis and structure your response in brief points. Do not include any phone numbers or asterisks (*) in formatting."
-          }
+            content: userMessage + "\n\nRemember to keep your response short, supportive, and focused on mental health support. Use appropriate emojis and structure your response in brief points. Do not include crisis numbers, support hotlines, or use asterisks (*) in formatting."          }
         ],
         max_tokens: 150,
         temperature: 0.7,

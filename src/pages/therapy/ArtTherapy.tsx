@@ -17,7 +17,7 @@ export function ArtTherapy() {
   // List of restricted terms and patterns
   const restrictedTerms = [
     'nude', 'naked', 'porn', 'explicit', 'nsfw', 'xxx', 'adult content',
-    'erotic', 'sexual', 'inappropriate', '18+', 'mature content'
+    'erotic', 'sexual', 'inappropriate', '18+', 'mature content' , 'bikini'
   ];
 
   // Function to check if prompt contains restricted content

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Palette, PenTool, Loader, Download } from 'lucide-react';
+import { Palette, PenTool, Loader, Download, AlertTriangle } from 'lucide-react';
 import { generateImage } from '../../lib/huggingface';
 
 interface GeneratedImage {
@@ -13,6 +13,19 @@ export function ArtTherapy() {
   const [prompt, setPrompt] = useState('');
   const [generatedImage, setGeneratedImage] = useState<GeneratedImage | null>(null);
   const [modelLoaded, setModelLoaded] = useState(false);
+
+  // List of restricted terms and patterns
+  const restrictedTerms = [
+    'nude', 'naked', 'porn', 'explicit', 'nsfw', 'xxx', 'adult content',
+    'erotic', 'sexual', 'inappropriate', '18+', 'mature content'
+  ];
+
+  // Function to check if prompt contains restricted content
+  const containsRestrictedContent = (text: string): boolean => {
+    const lowercaseText = text.toLowerCase();
+    return restrictedTerms.some(term => lowercaseText.includes(term)) ||
+           /\b(sex|porn|nsfw)\b/i.test(lowercaseText);
+  };
 
   useEffect(() => {
     const initModel = async () => {
@@ -61,6 +74,12 @@ export function ArtTherapy() {
       return;
     }
 
+    // Check for restricted content before proceeding
+    if (containsRestrictedContent(prompt)) {
+      setError('Your prompt contains inappropriate content. Please modify your request to meet our content guidelines.');
+      return;
+    }
+
     try {
       setLoading(true);
       setError(null);
@@ -105,7 +124,7 @@ export function ArtTherapy() {
           <p className="text-xl text-pink-600">Express yourself through AI-generated art</p>
         </div>
 
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="bg-white p-8 rounded-2xl shadow-lg border border-pink-100">
             <form onSubmit={handleSubmit} className="mb-6">
               <div className="mb-4">
@@ -137,7 +156,7 @@ export function ArtTherapy() {
 
             <div className="relative">
               <div
-                className="aspect-video bg-pink-50 rounded-xl mb-6 flex items-center justify-center relative overflow-hidden border border-pink-100"
+                className="h-[512px] bg-pink-50 rounded-xl mb-6 flex items-center justify-center relative overflow-hidden border border-pink-100"
                 role="img"
                 aria-label={generatedImage ? 'Generated artwork' : 'Empty canvas'}
               >
@@ -174,7 +193,7 @@ export function ArtTherapy() {
 
             {error && (
               <div className="p-4 bg-red-50 rounded-xl text-red-600 flex items-center gap-2 border border-red-100">
-                <span className="font-medium">Error:</span>
+                <AlertTriangle className="h-5 w-5" />
                 <span>{error}</span>
               </div>
             )}
@@ -184,3 +203,5 @@ export function ArtTherapy() {
     </div>
   );
 }
+
+export default ArtTherapy;

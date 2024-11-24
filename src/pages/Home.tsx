@@ -68,26 +68,26 @@ export default function Home() {
                 Track your mood, level up your habits, and unlock achievements! It's like a game, but for your wellbeing.
               </p>
               <div className="flex flex-wrap gap-4">
-                <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm border border-violet-100 hover:shadow-md transition-all duration-300 hover:scale-105">
-                <BookOpen className="h-5 w-5 text-violet-600" />
-                <span className="text-violet-600">Daily Journal</span>
+                <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm border border-violet-100">
+                  <BookOpen className="h-5 w-5 text-violet-600" />
+                  <span className="text-violet-600">Daily Journal</span>
                 </div>
-                <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm border border-fuchsia-100 hover:shadow-md transition-all duration-300 hover:scale-105">
+                <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm border border-fuchsia-100">
                   <Music className="h-5 w-5 text-fuchsia-600" />
                   <span className="text-fuchsia-600">Mood Mix</span>
                 </div>
-                <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm border border-pink-100 hover:shadow-md transition-all duration-300 hover:scale-105">
+                <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm border border-pink-100">
                   <Gamepad className="h-5 w-5 text-pink-600" />
                   <span className="text-pink-600">Mind Games</span>
                 </div>
               </div>
             </div>
-            <div className="flex-1 relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-300" />
+            <div className="flex-1 relative">
+              <div className="absolute -inset-1 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 rounded-2xl blur opacity-25" />
               <img 
-                src="https://s3.envato.com/files/369147749/DSC_569_30.06.2021.jpg"
+                src="https://www.sandiegofamily.com/images/article-organizer/yr-2018/08_Aug_18/things_kids_should_know-2188.jpg"
                 alt="Teens enjoying activities"
-                className="relative rounded-2xl shadow-xl transition duration-300 group-hover:scale-105"
+                className="relative rounded-2xl shadow-xl"
               />
             </div>
           </div>

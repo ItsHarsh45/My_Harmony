@@ -116,9 +116,9 @@ export default function Support() {
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-b from-white to-fuchsia-100">
-      <div className="absolute inset-0 overflow-auto">
-        <div className="pt-24 min-h-full">
+    <div className="min-h-screen bg-gradient-to-b from-white to-fuchsia-100">
+      <div className="w-full">
+        <div className="pt-16">
           <div className="max-w-7xl mx-auto px-4 pb-16">
             <div className="text-center mb-16">
               <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-fuchsia-600 to-pink-600 text-transparent bg-clip-text">

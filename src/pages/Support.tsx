@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Shield, Heart, Calendar, MessageSquare, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import ChatbotWindow from '../pages/support/ChatbotWindow';
 
 function SafetyNotice() {
   return (
@@ -40,18 +41,15 @@ function CrisisSupport() {
   );
 }
 
-function ChatbotSupport() {
-  const navigate = useNavigate();
-
-  const handleStartChat = () => {
-    navigate('/support/chat');
-  };
-
+function ChatbotSupport({ onOpenChat }) {
   return (
-    <div className="fixed bottom-6 right-12 z-50">
+    <div className="fixed bottom-8 right-12 z-40">
       <div className="relative group">
-        <div className="absolute -inset-[2px] bg-gradient-to-r from-fuchsia-600/50 via-pink-500/50 to-fuchsia-600/50 rounded-2xl blur-lg opacity-0 group-hover:opacity-75 transition-all duration-300 group-hover:animate-glow-pulse"></div>
-        <div className="relative bg-white p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer hover:scale-102 transition-transform duration-300" onClick={handleStartChat}>
+        <div className="absolute -inset-[2px] bg-gradient-to-r from-fuchsia-600/50 via-pink-500/50 to-fuchsia-600/50 rounded-2xl blur-lg opacity-0 group-hover:opacity-75 transition-all duration-300 hover:animate-pulse"></div>
+        <div 
+          onClick={onOpenChat}
+          className="relative bg-white p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer hover:scale-105 transition-transform duration-300"
+        >
           <div className="relative">
             <MessageSquare className="h-10 w-10 text-gray-700" />
             <Sparkles className="h-4 w-4 text-fuchsia-400 absolute -top-1 -right-1 animate-pulse" />
@@ -68,27 +66,6 @@ function ChatbotSupport() {
           </div>
         </div>
       </div>
-      
-      <style jsx>{`
-        @keyframes glow-pulse {
-          0% {
-            opacity: 0.5;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.75;
-            transform: scale(1.02);
-          }
-          100% {
-            opacity: 0.5;
-            transform: scale(1);
-          }
-        }
-
-        .animate-glow-pulse {
-          animation: glow-pulse 2s ease-in-out infinite;
-        }
-      `}</style>
     </div>
   );
 }
@@ -136,6 +113,8 @@ function TherapistBooking() {
 }
 
 export default function Support() {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
   return (
     <div className="fixed inset-0 bg-gradient-to-b from-white to-fuchsia-100">
       <div className="absolute inset-0 overflow-auto">
@@ -150,7 +129,8 @@ export default function Support() {
             <SafetyNotice />
             <CrisisSupport />
             <TherapistBooking />
-            <ChatbotSupport />
+            <ChatbotSupport onOpenChat={() => setIsChatOpen(true)} />
+            <ChatbotWindow isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
           </div>
         </div>
       </div>

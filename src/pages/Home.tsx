@@ -1,7 +1,6 @@
 import React from 'react';
 import { ArrowRight, Heart, Users, MessageCircle, Moon, Sun, Sparkles, Star, Music, Gamepad, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import ChatButton from '../components/ChatButton';
 
 export default function Home() {
   return (

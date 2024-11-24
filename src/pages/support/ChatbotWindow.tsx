@@ -28,6 +28,7 @@ export default function ChatbotWindow({ isOpen, onClose }: ChatbotWindowProps) {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -36,6 +37,13 @@ export default function ChatbotWindow({ isOpen, onClose }: ChatbotWindowProps) {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Add effect to focus input when loading state changes
+  useEffect(() => {
+    if (!isLoading && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isLoading]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -127,6 +135,7 @@ export default function ChatbotWindow({ isOpen, onClose }: ChatbotWindowProps) {
         <form onSubmit={handleSubmit} className="p-4 border-t bg-white">
           <div className="flex gap-2">
             <input
+              ref={inputRef}
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}

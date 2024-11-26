@@ -1,5 +1,5 @@
 import React from 'react';
-import { Music2, Palette, BookOpen, Brain, Sparkles, Shield } from 'lucide-react';
+import { Music2, Palette, BookOpen, Brain, Sparkles, Gamepad2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const therapyOptions = [
@@ -10,7 +10,7 @@ const therapyOptions = [
     link: '/therapy/music',
     gradient: 'from-blue-50 to-purple-50',
     iconColor: 'text-blue-600',
-    borderColor: 'hover:border-blue-200'  // Added border color
+    borderColor: 'hover:border-blue-200'
   },
   {
     icon: Palette,
@@ -49,10 +49,10 @@ const therapyOptions = [
     borderColor: 'hover:border-purple-200'
   },
   {
-    icon: Shield,
-    title: 'Instant Vibe',
-    description: 'Need immediate support? Quick tips for tough moments 🆘',
-    link: '/therapy/sos',
+    icon: Gamepad2,
+    title: 'Fun Games',
+    description: 'Playful mini-games to boost mood and reduce stress',
+    link: '/therapy/GameHub',
     gradient: 'from-red-50 to-orange-50',
     iconColor: 'text-red-600',
     borderColor: 'hover:border-red-200'
@@ -69,16 +69,16 @@ export default function Therapy() {
           </h1>
           <p className="text-xl text-gray-600">Discover various ways to express yourself and find inner peace</p>
         </div>
-
+        
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {therapyOptions.map((option) => {
             const Icon = option.icon;
             return (
-              <Link 
+              <Link
                 key={option.title}
                 to={option.link}
-                className={`bg-gradient-to-br ${option.gradient} p-8 rounded-2xl 
-                  hover:shadow-xl transition-all duration-300 hover:-translate-y-2 
+                className={`bg-gradient-to-br ${option.gradient} p-8 rounded-2xl
+                  hover:shadow-xl transition-all duration-300 hover:-translate-y-2
                   border-2 border-transparent ${option.borderColor}
                   group`}
               >

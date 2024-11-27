@@ -12,22 +12,6 @@ const games = [
     benefits: ['Emotional awareness', 'Memory improvement', 'Pattern recognition']
   },
   {
-    id: 'queens-game',
-    title: 'Queens Game',
-    description: 'Navigate through challenges while managing your mood meter',
-    icon: Brain,
-    color: 'purple',
-    benefits: ['Stress management', 'Decision making', 'Emotional regulation']
-  },
-  {
-    id: 'thought-bubbles',
-    title: 'Thought Bubbles',
-    description: 'Pop negative thoughts and collect positive affirmations',
-    icon: Sparkles,
-    color: 'blue',
-    benefits: ['Positive thinking', 'Quick reflexes', 'Mindfulness']
-  },
-  {
     id: 'snack-attack',
     title: 'Snack Attack',
     description: 'Guide your snake to collect healthy snacks and positive vibes',

@@ -19,9 +19,7 @@ import QuickSuggestions from './pages/therapy/QuickSuggestions';
 import BookAppointment from './pages/support/BookAppointments';
 import GameHub from './pages/therapy/GameHub';
 import MemoryMatch from './pages/therapy/games/MemoryMatch';
-import ThoughtBubbles from './pages/therapy/games/ThoughtBubbles';
 import SnackAttack from './pages/therapy/games/SnackAttack';
-import QueensGame from './pages/therapy/games/QueensGame';
 
 function App() {
   const { setUser, setLoading } = useAuthStore();
@@ -47,8 +45,6 @@ function App() {
         <Route path="/therapy" element={<Therapy />} />
         <Route path="/therapy/GameHub" element={<PrivateRoute><GameHub /></PrivateRoute>} />
         <Route path="/therapy/games/memory-match" element={<MemoryMatch />} />
-        <Route path="/therapy/games/queens-game" element={<QueensGame />} />
-        <Route path="/therapy/games/thought-bubbles" element={<ThoughtBubbles />} />
         <Route path="/therapy/games/snack-attack" element={<SnackAttack />} />
         <Route path="/therapy/music" element={<PrivateRoute><MusicTherapy /></PrivateRoute>} />
         <Route path="/therapy/art" element={<PrivateRoute><ArtTherapy /></PrivateRoute>} />

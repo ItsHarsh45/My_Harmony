@@ -18,20 +18,31 @@ export default function MemoryMatch() {
   const [moves, setMoves] = useState(0);
   const [gameComplete, setGameComplete] = useState(false);
   const [showHint, setShowHint] = useState(false);
+  const [isFirstGame, setIsFirstGame] = useState(true);
 
   useEffect(() => {
-    initializeGame();
+    initializeGame(true);
   }, []);
 
-  const initializeGame = () => {
+  const initializeGame = (isInitialStart: boolean = false) => {
     const duplicatedEmotions = [...emotions, ...emotions]
       .sort(() => Math.random() - 0.5)
       .map((item, index) => ({ ...item, id: index }));
+    
     setCards(duplicatedEmotions);
     setFlipped([]);
     setMatched([]);
     setMoves(0);
     setGameComplete(false);
+    
+    // Automatically show hint for first game or when explicitly starting a new game
+    if (isInitialStart || !isFirstGame) {
+      setShowHint(true);
+      setTimeout(() => setShowHint(false), 2000);
+    }
+    
+    // Mark that it's no longer the first game
+    setIsFirstGame(false);
   };
 
   const handleCardClick = (index: number) => {
@@ -82,7 +93,7 @@ export default function MemoryMatch() {
               Peek Cards
             </button>
             <button
-              onClick={initializeGame}
+              onClick={() => initializeGame()}
               className="px-4 py-2 bg-pink-100 text-pink-700 rounded-lg hover:bg-pink-200 transition"
             >
               New Game
@@ -124,7 +135,7 @@ export default function MemoryMatch() {
             You completed the game in {moves} moves!
           </p>
           <button
-            onClick={initializeGame}
+            onClick={() => initializeGame()}
             className="mt-4 px-6 py-3 bg-green-500 text-white rounded-full hover:bg-green-600 transition"
           >
             Play Again

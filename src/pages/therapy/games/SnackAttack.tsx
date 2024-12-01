@@ -5,6 +5,7 @@ import { Apple, ArrowLeft, Heart } from 'lucide-react';
 const GRID_SIZE = 20;
 const CELL_SIZE = 25;
 const INITIAL_SPEED = 200;
+const MIN_SPEED = 80; // Minimum speed limit
 
 type Position = {
   x: number;
@@ -85,11 +86,33 @@ export default function SnackAttack() {
       const newSnake = [head, ...prevSnake];
       
       if (head.x === food.x && head.y === food.y) {
-        setScore(s => s + (typeof food.type === 'string' && food.type.length > 2 ? 15 : 10));
+        const pointValue = typeof food.type === 'string' && food.type.length > 2 ? 15 : 10;
+        setScore(prevScore => {
+          const newScore = prevScore + pointValue;
+          
+          // Adjust speed based on score, but with a minimum limit
+          if (newScore <= 50) {
+            setSpeed(INITIAL_SPEED);
+          } else if (newScore <= 100) {
+            setSpeed(Math.max(INITIAL_SPEED - 25, MIN_SPEED));
+          } else if (newScore <= 150) {
+            setSpeed(Math.max(INITIAL_SPEED - 40, MIN_SPEED));
+          } else if (newScore <= 200) {
+            setSpeed(Math.max(INITIAL_SPEED - 60, MIN_SPEED));
+          } else if (newScore <= 250) {
+            setSpeed(Math.max(INITIAL_SPEED - 70, MIN_SPEED));
+          } else if (newScore <= 250) {
+            setSpeed(Math.max(INITIAL_SPEED - 90, MIN_SPEED));
+          } else {
+            setSpeed(MIN_SPEED); // Maximum speed reached
+          }
+          
+          return newScore;
+        });
+
         setMessage(typeof food.type === 'string' && food.type.length > 2 ? food.type : 'Yummy!');
         setMessagePosition(prev => prev === 'left' ? 'right' : 'left');
         setTimeout(() => setMessage(''), 1000);
-        if (speed > 80) setSpeed(s => s - 5);
         generateFood();
       } else {
         newSnake.pop();
@@ -97,7 +120,7 @@ export default function SnackAttack() {
 
       return newSnake;
     });
-  }, [direction, food, gameOver, paused, generateFood, speed]);
+  }, [direction, food, gameOver, paused, generateFood]);
 
   useEffect(() => {
     if (gameRef.current) {

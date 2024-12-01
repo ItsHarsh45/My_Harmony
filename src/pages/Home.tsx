@@ -140,7 +140,7 @@ export default function Dashboard() {
               </h1>
             </div>
             <Link 
-              to="/profile" 
+              to="/about-me" 
               className="flex items-center gap-2 text-violet-700 hover:text-violet-800 transition-colors border-2 border-violet-300 hover:border-violet-400 rounded-full px-3 py-1 group"
             >
               <User className="h-5 w-5 group-hover:scale-110 transition-transform" />

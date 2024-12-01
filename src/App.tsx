@@ -11,6 +11,7 @@ import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
 import Support from './pages/Support';
 import Therapy from './pages/Therapy';
+import AboutMe from './pages/AboutMe';
 import MusicTherapy from './pages/therapy/MusicTherapy';
 import { ArtTherapy } from './pages/therapy/ArtTherapy';
 import Journaling from './pages/therapy/Journaling';
@@ -43,6 +44,7 @@ function App() {
         <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
         <Route path="/support" element={<Support />} />
         <Route path="/therapy" element={<Therapy />} />
+        <Route path="/about-me" element={<AboutMe />} />
         <Route path="/therapy/GameHub" element={<PrivateRoute><GameHub /></PrivateRoute>} />
         <Route path="/therapy/games/memory-match" element={<MemoryMatch />} />
         <Route path="/therapy/games/snack-attack" element={<SnackAttack />} />

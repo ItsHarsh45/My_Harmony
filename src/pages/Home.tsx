@@ -326,6 +326,26 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 py-8">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p className="text-white font-medium">
+            Created by <span className="font-bold">Harsh Kemali</span>
+          </p>
+          <p className="text-white/80 mt-2">
+            Contact: <a 
+              href="mailto:harshkemali123@gmail.com" 
+              className="text-white hover:underline"
+            >
+              harshkemali123@gmail.com
+            </a>
+          </p>
+          <div className="mt-4 text-sm text-white/60">
+            © {new Date().getFullYear()} All Rights Reserved
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

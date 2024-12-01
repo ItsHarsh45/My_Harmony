@@ -5,14 +5,37 @@ import {
 import { useAuthStore } from '../stores/useAuthStore';
 import { useAppointmentStore } from '../stores/useAppointmentStore';
 
-const therapists = [
+const therapists: Therapist[] = [
   {
     id: 1,
     name: 'Dr. Sarah Johnson',
     title: 'Child & Adolescent Psychiatrist',
     specialty: 'Anxiety & Depression in Teens'
   },
-  // ... other therapists remain the same
+  {
+    id: 2,
+    name: 'Dr. Michael Chen',
+    title: 'Adolescent Psychologist',
+    specialty: 'Teen Identity & Social Issues'
+  },
+  {
+    id: 3,
+    name: 'Dr. Emily Rodriguez',
+    title: 'Teen Trauma Specialist',
+    specialty: 'Trauma & Resilience Building'
+  },
+  {
+    id: 4,
+    name: 'Dr. Aisha Patel',
+    title: 'Youth Mental Health Specialist',
+    specialty: 'Digital Age Mental Health'
+  },
+  {
+    id: 5,
+    name: 'Dr. James Wilson',
+    title: 'Adolescent Behavioral Specialist',
+    specialty: 'ADHD & Executive Functioning'
+  }
 ];
 
 export default function Profile() {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Shield, Heart, Calendar, MessageSquare, Sparkles, Clock, Users, Brain, BookOpen } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import ChatbotWindow from './support/ChatbotWindow';
 
 function SafetyNotice() {
   return (
@@ -97,28 +98,28 @@ function SessionBooking() {
       icon: Brain,
       title: "Individual Therapy",
       description: "One-on-one counseling tailored to your needs",
-      duration: "45 minutes",
+      duration: "40 minutes",
       color: "from-violet-500 to-purple-500"
     },
     {
       icon: Users,
       title: "Family Therapy",
       description: "Sessions involving family members",
-      duration: "60 minutes",
+      duration: "50 minutes",
       color: "from-fuchsia-500 to-pink-500"
     },
     {
       icon: Users,
       title: "Group Therapy",
       description: "Supportive group sessions with peers",
-      duration: "90 minutes",
+      duration: "60 minutes",
       color: "from-pink-500 to-rose-500"
     },
     {
       icon: BookOpen,
       title: "Skills Training",
       description: "Learn practical coping strategies",
-      duration: "50 minutes",
+      duration: "40 minutes",
       color: "from-purple-500 to-indigo-500"
     }
   ];

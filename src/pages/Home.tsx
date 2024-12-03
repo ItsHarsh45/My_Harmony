@@ -4,34 +4,34 @@ import { useAuthStore } from '../stores/useAuthStore';
 import { ArrowRight, Heart, Users, Sun, Music, Gamepad, BookOpen, Moon, Coffee, Star, User, Sparkles, Calendar, ExternalLink, Palette, Lightbulb, ChevronRight } from 'lucide-react';
 import { useAppointmentStore } from '../stores/useAppointmentStore';
 
-const therapists = [
+const therapists: Therapist[] = [
   {
     id: 1,
-    name: 'Dr. Sarah Johnson',
+    name: 'Dr. Priya Sharma',
     title: 'Child & Adolescent Psychiatrist',
     specialty: 'Anxiety & Depression in Teens'
   },
   {
     id: 2,
-    name: 'Dr. Michael Chen',
+    name: 'Dr. Rajesh Malhotra',
     title: 'Adolescent Psychologist',
     specialty: 'Teen Identity & Social Issues'
   },
   {
     id: 3,
-    name: 'Dr. Emily Rodriguez',
+    name: 'Dr. Deepa Iyer',
     title: 'Teen Trauma Specialist',
     specialty: 'Trauma & Resilience Building'
   },
   {
     id: 4,
-    name: 'Dr. Aisha Patel',
+    name: 'Dr. Kavya Reddy',
     title: 'Youth Mental Health Specialist',
     specialty: 'Digital Age Mental Health'
   },
   {
     id: 5,
-    name: 'Dr. James Wilson',
+    name: 'Dr. Sanjay Gupta',
     title: 'Adolescent Behavioral Specialist',
     specialty: 'ADHD & Executive Functioning'
   }

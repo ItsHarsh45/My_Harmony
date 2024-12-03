@@ -1,38 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  User, Mail, Calendar, Edit2, Clock, AlertCircle 
+  User, Mail, Calendar, Edit2, Clock, AlertCircle, Globe, Settings
 } from 'lucide-react';
 import { useAuthStore } from '../stores/useAuthStore';
 import { useAppointmentStore } from '../stores/useAppointmentStore';
 
+interface Therapist {
+  id: number;
+  name: string;
+  title: string;
+  specialty: string;
+}
+
+interface Appointment {
+  id?: string;
+  therapistId: string;
+  userId: string;
+  date: string;
+  time: string;
+  status: 'scheduled' | 'cancelled' | 'completed';
+  sessionType: string;
+  preferredLanguage: string;
+}
+
 const therapists: Therapist[] = [
   {
     id: 1,
-    name: 'Dr. Sarah Johnson',
+    name: 'Dr. Priya Sharma',
     title: 'Child & Adolescent Psychiatrist',
     specialty: 'Anxiety & Depression in Teens'
   },
   {
     id: 2,
-    name: 'Dr. Michael Chen',
+    name: 'Dr. Rajesh Malhotra',
     title: 'Adolescent Psychologist',
     specialty: 'Teen Identity & Social Issues'
   },
   {
     id: 3,
-    name: 'Dr. Emily Rodriguez',
+    name: 'Dr. Deepa Iyer',
     title: 'Teen Trauma Specialist',
     specialty: 'Trauma & Resilience Building'
   },
   {
     id: 4,
-    name: 'Dr. Aisha Patel',
+    name: 'Dr. Kavya Reddy',
     title: 'Youth Mental Health Specialist',
     specialty: 'Digital Age Mental Health'
   },
   {
     id: 5,
-    name: 'Dr. James Wilson',
+    name: 'Dr. Sanjay Gupta',
     title: 'Adolescent Behavioral Specialist',
     specialty: 'ADHD & Executive Functioning'
   }
@@ -102,33 +120,51 @@ export default function Profile() {
         key={appointment.id}
         className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:border-fuchsia-200 transition-colors"
       >
-        <div className="flex items-start justify-between">
-          <div className="space-y-3">
+        <div className="space-y-4">
+          <div className="flex items-start justify-between">
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <Clock className="h-5 w-5 text-fuchsia-600" />
+                <span className="font-medium">
+                  {aptDate.toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </span>
+              </div>
+              <p className="text-gray-600">{appointment.time}</p>
+              <div className="space-y-1">
+                <p className="font-medium text-gray-900">{therapist.name}</p>
+                <p className="text-sm text-gray-500">{therapist.title}</p>
+                <p className="text-sm text-fuchsia-600">{therapist.specialty}</p>
+              </div>
+            </div>
+            <span className={`px-3 py-1 rounded-full text-sm ${
+              appointment.status === 'scheduled' ? 'bg-green-100 text-green-700' :
+              appointment.status === 'cancelled' ? 'bg-red-100 text-red-700' :
+              'bg-gray-100 text-gray-700'
+            }`}>
+              {appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}
+            </span>
+          </div>
+
+          {/* Session Type and Language Section */}
+          <div className="pt-4 border-t border-gray-100 grid grid-cols-2 gap-4">
             <div className="flex items-center gap-2">
-              <Clock className="h-5 w-5 text-fuchsia-600" />
-              <span className="font-medium">
-                {aptDate.toLocaleDateString('en-US', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}
+              <Settings className="h-4 w-4 text-fuchsia-600" />
+              <span className="text-sm text-gray-600">
+                {appointment.sessionType || 'Individual Therapy'}
               </span>
             </div>
-            <p className="text-gray-600">{appointment.time}</p>
-            <div className="space-y-1">
-              <p className="font-medium text-gray-900">{therapist.name}</p>
-              <p className="text-sm text-gray-500">{therapist.title}</p>
-              <p className="text-sm text-fuchsia-600">{therapist.specialty}</p>
+            <div className="flex items-center gap-2">
+              <Globe className="h-4 w-4 text-fuchsia-600" />
+              <span className="text-sm text-gray-600">
+                {appointment.preferredLanguage || 'English'}
+              </span>
             </div>
           </div>
-          <span className={`px-3 py-1 rounded-full text-sm ${
-            appointment.status === 'scheduled' ? 'bg-green-100 text-green-700' :
-            appointment.status === 'cancelled' ? 'bg-red-100 text-red-700' :
-            'bg-gray-100 text-gray-700'
-          }`}>
-            {appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}
-          </span>
         </div>
       </div>
     );

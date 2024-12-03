@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Clock, MessageCircle, Award, BookOpen, Heart, Users, Star, ChevronRight, AlertCircle } from 'lucide-react';
+import { Calendar, Clock, MessageCircle, Award, BookOpen, Heart, Users, Star, ChevronRight, AlertCircle, Globe, Settings } from 'lucide-react';
 import { collection, query, where, getDocs, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { useAuthStore } from '../../stores/useAuthStore';
@@ -30,13 +30,15 @@ interface Appointment {
   date: string;
   time: string;
   status: 'scheduled' | 'cancelled' | 'completed';
+  sessionType: string;
+  preferredLanguage: string;
   createdAt: any;
 }
 
 const therapists: Therapist[] = [
   {
     id: 1,
-    name: 'Dr. Sarah Johnson',
+    name: 'Dr. Priya Sharma',
     title: 'Child & Adolescent Psychiatrist',
     specialty: 'Anxiety & Depression in Teens',
     experience: '15 years experience',
@@ -44,15 +46,15 @@ const therapists: Therapist[] = [
     certifications: ['Board Certified in Child & Adolescent Psychiatry', 'Cognitive Behavioral Therapy Certified'],
     approach: 'I specialize in helping teens navigate anxiety, depression, and academic stress using a combination of CBT and mindfulness techniques. I create a safe, judgment-free space where young people can express themselves freely.',
     ageGroups: '12-20 years',
-    languages: ['English', 'Spanish'],
+    languages: ['English', 'Hindi','Kannada'],
     availability: 'Mon-Fri',
-    image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=300&h=300',
+    image: 'https://cdn.hexahealth.com/Image/webp/480x480/4230ad0e-a4e6-49ab-9af9-2aa9cb7ace7b.webp',
     specialFocus: ['Academic Stress', 'Social Anxiety', 'Depression', 'Self-Esteem'],
     sessionTypes: ['Individual Therapy', 'Family Sessions', 'Group Therapy'],
   },
   {
     id: 2,
-    name: 'Dr. Michael Chen',
+    name: 'Dr. Rajesh Malhotra',
     title: 'Adolescent Psychologist',
     specialty: 'Teen Identity & Social Issues',
     experience: '12 years experience',
@@ -60,15 +62,15 @@ const therapists: Therapist[] = [
     certifications: ['Licensed Clinical Psychologist', 'LGBTQ+ Youth Counseling Certified'],
     approach: 'My practice focuses on helping teenagers explore their identity, manage social relationships, and build self-confidence. I use a strengths-based approach combined with narrative therapy.',
     ageGroups: '13-20 years',
-    languages: ['English', 'Mandarin'],
+    languages: ['English', 'Hindi'],
     availability: 'Tue-Sat',
-    image: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=300&h=300&fit=crop',
+    image: 'https://www.amritahospitals.org/_next/image?url=https%3A%2F%2Fadmin.amritahospitals.org%2Fsites%2Fdefault%2Ffiles%2F2023-05%2FDr.%2520Rajesh%2520Jose-amritahospitals-kochi.jpg&w=3840&q=75',
     specialFocus: ['Identity Development', 'LGBTQ+ Youth', 'Peer Relationships', 'Cultural Issues'],
     sessionTypes: ['Individual Therapy', 'Group Support Sessions'],
   },
   {
     id: 3,
-    name: 'Dr. Emily Rodriguez',
+    name: 'Dr. Deepa Iyer',
     title: 'Teen Trauma Specialist',
     specialty: 'Trauma & Resilience Building',
     experience: '10 years experience',
@@ -76,15 +78,15 @@ const therapists: Therapist[] = [
     certifications: ['Trauma-Focused CBT Certified', 'EMDR Certified'],
     approach: 'I help young people heal from trauma and build resilience through evidence-based treatments. My practice combines trauma-focused CBT with creative expression and mindfulness.',
     ageGroups: '12-18 years',
-    languages: ['English', 'Spanish'],
+    languages: ['English', 'Malayalam'],
     availability: 'Mon-Thu',
-    image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=300&h=300&fit=crop',
+    image: 'https://www.asterhospitals.in/sites/default/files/2024-03/Dr%20Deepa%20Rajmohan.jpg',
     specialFocus: ['Trauma Recovery', 'Anxiety', 'Family Conflicts', 'Emotional Regulation'],
     sessionTypes: ['Individual Therapy', 'Family Therapy', 'Art Therapy'],
   },
   {
     id: 4,
-    name: 'Dr. Aisha Patel',
+    name: 'Dr. Kavya Reddy',
     title: 'Youth Mental Health Specialist',
     specialty: 'Digital Age Mental Health',
     experience: '8 years experience',
@@ -92,15 +94,15 @@ const therapists: Therapist[] = [
     certifications: ['Digital Media & Youth Mental Health Certified', 'DBT Certified'],
     approach: 'I specialize in helping teens navigate mental health challenges in the digital age, including social media impact, online relationships, and cyber-bullying.',
     ageGroups: '12-20 years',
-    languages: ['English', 'Hindi', 'Gujarati'],
+    languages: ['English', 'Telugu', 'Hindi'],
     availability: 'Wed-Sun',
-    image: 'https://images.unsplash.com/photo-1589156191108-c762ff4b96ab?w=300&h=300&fit=crop',
+    image: 'https://www.motherhoodindia.com/wp-content/uploads/2021/09/Bangalore-Hebbal-Dr-Shovna-KC-PT.jpg',
     specialFocus: ['Social Media Impact', 'Gaming Addiction', 'Cyberbullying', 'Digital Wellness'],
     sessionTypes: ['Individual Therapy', 'Parent Consultations'],
   },
   {
     id: 5,
-    name: 'Dr. James Wilson',
+    name: 'Dr. Sanjay Gupta',
     title: 'Adolescent Behavioral Specialist',
     specialty: 'ADHD & Executive Functioning',
     experience: '14 years experience',
@@ -108,9 +110,9 @@ const therapists: Therapist[] = [
     certifications: ['ADHD Specialist Certification', 'Behavioral Therapy Certified'],
     approach: 'I help teens with ADHD and executive functioning challenges develop practical strategies for academic success and daily life management.',
     ageGroups: '12-19 years',
-    languages: ['English'],
+    languages: ['English', 'Hindi','Kannada'],
     availability: 'Mon-Fri',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop',
+    image: 'https://drsanjaygupta.info/wp-content/uploads/2023/12/Untitled-design-3.png',
     specialFocus: ['ADHD Management', 'Executive Functioning', 'Academic Skills', 'Behavior Management'],
     sessionTypes: ['Individual Therapy', 'Skills Training', 'Parent-Teen Sessions'],
   }
@@ -126,6 +128,7 @@ function BookAppointment() {
   const { appointments, bookAppointment, loadAppointments, loading, error } = useAppointmentStore();
   const navigate = useNavigate();
   
+  // State management
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [selectedTherapist, setSelectedTherapist] = useState<Therapist | null>(null);
@@ -136,6 +139,8 @@ function BookAppointment() {
   const [availableTimeSlots, setAvailableTimeSlots] = useState<string[]>(BASE_TIME_SLOTS);
   const [isCheckingAvailability, setIsCheckingAvailability] = useState(false);
   const [availabilityError, setAvailabilityError] = useState('');
+  const [selectedSessionType, setSelectedSessionType] = useState('');
+  const [selectedLanguage, setSelectedLanguage] = useState('');
 
   useEffect(() => {
     if (!user) {
@@ -144,47 +149,61 @@ function BookAppointment() {
     loadAppointments();
   }, [user, navigate, loadAppointments]);
 
-  // Helper function to validate date
+  // Validation helper
   const isValidDate = (date: string): boolean => {
     if (!date) return false;
-    
     try {
       const selectedDate = new Date(date);
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      
-      // Check if date is valid
       if (isNaN(selectedDate.getTime())) return false;
-      
-      // Check if date is not in the past
       return selectedDate >= today;
     } catch {
       return false;
     }
   };
 
+  // Selection handlers
   const handleTherapistSelect = (therapist: Therapist) => {
     setSelectedTherapist(therapist);
     setShowTherapistDetails(true);
+    resetBookingForm();
+  };
+
+  const handleDateSelect = (date: string) => {
     setSelectedDate('');
     setSelectedTime('');
+    setBookingError('');
+    setAvailabilityError('');
+    
+    if (!isValidDate(date)) {
+      setBookingError('Please select a valid future date');
+      return;
+    }
+    
+    setSelectedDate(date);
+  };
+
+  const resetBookingForm = () => {
+    setSelectedDate('');
+    setSelectedTime('');
+    setSelectedSessionType('');
+    setSelectedLanguage('');
     setBookingError('');
     setBookingSuccess(false);
   };
 
-  // Improved availability checking with better error handling
+  // Availability checking
   useEffect(() => {
     let isMounted = true;
     
     const checkAvailability = async () => {
-      // Reset states at the start
       if (!selectedDate || !selectedTherapist) {
         setAvailableTimeSlots(BASE_TIME_SLOTS);
         setAvailabilityError('');
         return;
       }
 
-      // Validate date
       if (!isValidDate(selectedDate)) {
         setAvailabilityError('Please select a valid future date');
         setAvailableTimeSlots([]);
@@ -195,10 +214,7 @@ function BookAppointment() {
       setAvailabilityError('');
 
       try {
-        // Create a reference to the appointments collection
         const appointmentsRef = collection(db, 'appointments');
-        
-        // Build the query
         const appointmentQuery = query(
           appointmentsRef,
           where('therapistId', '==', selectedTherapist.id.toString()),
@@ -206,49 +222,29 @@ function BookAppointment() {
           where('status', '==', 'scheduled')
         );
 
-        // Add timeout promise
-        const timeoutPromise = new Promise((_, reject) => {
-          setTimeout(() => reject(new Error('Request timeout')), 15000); // Increased timeout to 15 seconds
-        });
-
-        // Fetch appointments with timeout
-        const querySnapshot = await Promise.race([
-          getDocs(appointmentQuery),
-          timeoutPromise
-        ]);
-
+        const querySnapshot = await getDocs(appointmentQuery);
         if (!isMounted) return;
 
-        // Get booked times from the snapshot
         const bookedTimes = querySnapshot.docs.map(doc => doc.data().time);
-
-        // Filter available times
         const currentDate = new Date();
         const selectedDateTime = new Date(selectedDate);
         
-        // Get available time slots
         const availableTimes = BASE_TIME_SLOTS.filter(time => {
-          // Don't include already booked times
           if (bookedTimes.includes(time)) return false;
 
-          // Parse the time
           const [timeStr, period] = time.split(' ');
           const [hours, minutes] = timeStr.split(':');
           let hour = parseInt(hours);
 
-          // Convert to 24-hour format
           if (period === 'PM' && hour !== 12) hour += 12;
           if (period === 'AM' && hour === 12) hour = 0;
 
-          // Create a date object for comparison
           const timeDate = new Date(selectedDateTime);
           timeDate.setHours(hour, parseInt(minutes), 0, 0);
 
-          // Return true if the time is in the future
           return timeDate > currentDate;
         });
 
-        // Update state based on results
         if (availableTimes.length === 0) {
           setAvailabilityError('No available time slots for this date. Please select another date.');
           setAvailableTimeSlots([]);
@@ -257,7 +253,6 @@ function BookAppointment() {
           setAvailabilityError('');
         }
 
-        // Clear selected time if it's no longer available
         if (selectedTime && !availableTimes.includes(selectedTime)) {
           setSelectedTime('');
           setBookingError('Previously selected time is no longer available.');
@@ -266,10 +261,7 @@ function BookAppointment() {
       } catch (err: any) {
         console.error('Error checking availability:', err);
         
-        // Handle specific error cases
-        if (err.message === 'Request timeout') {
-          setAvailabilityError('Connection timeout. Please try again.');
-        } else if (err.code === 'permission-denied') {
+        if (err.code === 'permission-denied') {
           setAvailabilityError('You do not have permission to view availability.');
         } else if (err.code === 'unavailable') {
           setAvailabilityError('Service temporarily unavailable. Please try again in a few moments.');
@@ -285,19 +277,18 @@ function BookAppointment() {
       }
     };
 
-    // Add a small delay before checking availability to prevent too many rapid requests
     const timeoutId = setTimeout(checkAvailability, 300);
 
-    // Cleanup function
     return () => {
       isMounted = false;
       clearTimeout(timeoutId);
     };
   }, [selectedDate, selectedTherapist, selectedTime]);
 
+  // Booking handler
   const handleBooking = async () => {
-    if (!user || !selectedTherapist || !selectedDate || !selectedTime) {
-      setBookingError('Please select all required booking information');
+    if (!user || !selectedTherapist || !selectedDate || !selectedTime || !selectedSessionType || !selectedLanguage) {
+      setBookingError('Please select all required booking information including session type and preferred language');
       return;
     }
 
@@ -311,15 +302,15 @@ function BookAppointment() {
         date: selectedDate,
         time: selectedTime,
         status: 'scheduled',
+        sessionType: selectedSessionType,
+        preferredLanguage: selectedLanguage,
         createdAt: serverTimestamp()
       };
 
       await addDoc(collection(db, 'appointments'), appointment);
-      
       setBookingSuccess(true);
-      await loadAppointments(); // Refresh appointments list
+      await loadAppointments();
       
-      // Reset form after successful booking
       setTimeout(() => {
         navigate('/profile');
       }, 2000);
@@ -331,21 +322,7 @@ function BookAppointment() {
     }
   };
 
-  // Improved date selection handler
-  const handleDateSelect = (date: string) => {
-    setSelectedDate('');
-    setSelectedTime('');
-    setBookingError('');
-    setAvailabilityError('');
-    
-    if (!isValidDate(date)) {
-      setBookingError('Please select a valid future date');
-      return;
-    }
-    
-    setSelectedDate(date);
-  };
-
+  // Render functions
   const renderTimeSlots = () => {
     if (isCheckingAvailability) {
       return (
@@ -365,20 +342,239 @@ function BookAppointment() {
     }
 
     return (
-      <div className="grid grid-cols-2 gap-3">
-        {availableTimeSlots.map((time) => (
-          <button
-            key={time}
-            onClick={() => setSelectedTime(time)}
-            className={`p-3 rounded-xl border-2 transition text-sm ${
-              selectedTime === time
-                ? 'border-purple-600 bg-purple-50 text-purple-700'
-                : 'border-gray-200 hover:border-purple-300'
-            }`}
-          >
-            {time}
-          </button>
-        ))}
+      <div className="bg-white p-6 rounded-2xl shadow-lg">
+        <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+          <Clock className="h-5 w-5 text-purple-600" />
+          Select Time
+        </h2>
+        <div className="grid grid-cols-2 gap-3">
+          {availableTimeSlots.map((time) => (
+            <button
+              key={time}
+              onClick={() => setSelectedTime(time)}
+              className={`p-3 rounded-xl border-2 transition text-sm ${
+                selectedTime === time
+                  ? 'border-purple-600 bg-purple-50 text-purple-700'
+                  : 'border-gray-200 hover:border-purple-300'
+              }`}
+            >
+              {time}
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderSessionTypeSelector = () => {
+    if (!selectedTherapist) return null;
+
+    return (
+      <div className="bg-white p-6 rounded-2xl shadow-lg">
+        <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+          <Settings className="h-5 w-5 text-purple-600" />
+          Select Session Type
+        </h2>
+        <div className="grid grid-cols-1 gap-3">
+          {selectedTherapist.sessionTypes.map((type) => (
+            <button
+              key={type}
+              onClick={() => setSelectedSessionType(type)}
+              className={`p-3 rounded-xl border-2 transition text-sm ${
+                selectedSessionType === type
+                  ? 'border-purple-600 bg-purple-50 text-purple-700'
+                  : 'border-gray-200 hover:border-purple-300'
+              }`}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderLanguageSelector = () => {
+    if (!selectedTherapist) return null;
+
+    return (
+      <div className="bg-white p-6 rounded-2xl shadow-lg">
+        <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+          <Globe className="h-5 w-5 text-purple-600" />
+          Select Preferred Language
+        </h2>
+        <div className="grid grid-cols-1 gap-3">
+          {selectedTherapist.languages.map((language) => (
+            <button
+              key={language}
+              onClick={() => setSelectedLanguage(language)}
+              className={`p-3 rounded-xl border-2 transition text-sm ${
+                selectedLanguage === language
+                  ? 'border-purple-600 bg-purple-50 text-purple-700'
+                  : 'border-gray-200 hover:border-purple-300'
+              }`}
+            >
+              {language}
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderTherapistDetails = () => {
+    if (!selectedTherapist) return null;
+
+    return (
+      <div className="bg-white p-8 rounded-2xl shadow-lg">
+        <button
+          onClick={() => setShowTherapistDetails(false)}
+          className="text-purple-600 mb-6 flex items-center hover:text-purple-700"
+        >
+          ← Back to all therapists
+        </button>
+        
+        <div className="flex items-start gap-6 mb-8">
+          <img
+            src={selectedTherapist.image}
+            alt={selectedTherapist.name}
+            className="w-32 h-32 rounded-full object-cover"
+          />
+          <div>
+            <h2 className="text-2xl font-bold mb-2">{selectedTherapist.name}</h2>
+            <p className="text-purple-600 font-medium">{selectedTherapist.title}</p>
+            <p className="text-gray-600 mt-2">{selectedTherapist.experience}</p>
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          <div>
+            <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+              <BookOpen className="h-5 w-5 text-purple-600" />
+              Approach & Philosophy
+            </h3>
+            <p className="text-gray-700">{selectedTherapist.approach}</p>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+              <Award className="h-5 w-5 text-purple-600" />
+              Education & Certifications
+            </h3>
+            <p className="text-gray-700 mb-2">{selectedTherapist.education}</p>
+            <ul className="list-disc list-inside text-gray-700">
+              {selectedTherapist.certifications.map((cert) => (
+                <li key={cert}>{cert}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+              <Globe className="h-5 w-5 text-purple-600" />
+              Languages Spoken
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {selectedTherapist.languages.map((language) => (
+                <span
+                  key={language}
+                  className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm"
+                >
+                  {language}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+              <Star className="h-5 w-5 text-purple-600" />
+              Areas of Focus
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {selectedTherapist.specialFocus.map((focus) => (
+                <span
+                  key={focus}
+                  className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm"
+                >
+                  {focus}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+              <Users className="h-5 w-5 text-purple-600" />
+              Session Types
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {selectedTherapist.sessionTypes.map((type) => (
+                <span
+                  key={type}
+                  className="bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-sm"
+                >
+                  {type}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderBookingSummary = () => {
+    if (!selectedTherapist || !selectedDate || !selectedTime) return null;
+
+    return (
+      <div className="bg-white p-6 rounded-2xl shadow-lg">
+        <h2 className="text-xl font-semibold mb-4">Booking Summary</h2>
+        <div className="space-y-3 mb-6">
+          <div className="flex items-center gap-2 text-gray-700">
+            <MessageCircle className="h-5 w-5 text-purple-600" />
+            <span>Session with {selectedTherapist.name}</span>
+          </div>
+          <div className="flex items-center gap-2 text-gray-700">
+            <Calendar className="h-5 w-5 text-purple-600" />
+            <span>{new Date(selectedDate).toLocaleDateString('en-US', {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}</span>
+          </div>
+          <div className="flex items-center gap-2 text-gray-700">
+            <Clock className="h-5 w-5 text-purple-600" />
+            <span>{selectedTime}</span>
+          </div>
+          {selectedSessionType && (
+            <div className="flex items-center gap-2 text-gray-700">
+              <Settings className="h-5 w-5 text-purple-600" />
+              <span>Session Type: {selectedSessionType}</span>
+            </div>
+          )}
+          {selectedLanguage && (
+            <div className="flex items-center gap-2 text-gray-700">
+              <Globe className="h-5 w-5 text-purple-600" />
+              <span>Preferred Language: {selectedLanguage}</span>
+            </div>
+          )}
+        </div>
+        <button
+          onClick={handleBooking}
+          disabled={isBookingInProgress || bookingSuccess || !selectedSessionType || !selectedLanguage}
+          className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-xl hover:from-purple-700 hover:to-pink-700 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isBookingInProgress ? (
+            <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+          ) : (
+            <>
+              Confirm Booking
+              <ChevronRight className="h-5 w-5" />
+            </>
+          )}
+        </button>
       </div>
     );
   };
@@ -424,7 +620,6 @@ function BookAppointment() {
                   key={therapist.id}
                   onClick={() => handleTherapistSelect(therapist)}
                   className="bg-white p-6 rounded-2xl transition text-left border-2 border-transparent hover:border-purple-200"
-
                 >
                   <div className="flex items-start gap-4">
                     <img
@@ -437,8 +632,21 @@ function BookAppointment() {
                       <p className="text-purple-600 font-medium">{therapist.title}</p>
                       <p className="text-sm text-gray-600 mt-2">{therapist.experience}</p>
                       <div className="mt-3 flex flex-wrap gap-2">
+                        {therapist.languages.map((language) => (
+                          <span
+                            key={language}
+                            className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full"
+                          >
+                            {language}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="mt-2 flex flex-wrap gap-2">
                         {therapist.specialFocus.slice(0, 2).map((focus) => (
-                          <span key={focus} className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">
+                          <span
+                            key={focus}
+                            className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full"
+                          >
                             {focus}
                           </span>
                         ))}
@@ -451,86 +659,8 @@ function BookAppointment() {
           ) : selectedTherapist && (
             <div className="grid lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2 space-y-6">
-              <div className="bg-white p-8 rounded-2xl shadow-lg">
-                  <button
-                    onClick={() => setShowTherapistDetails(false)}
-                    className="text-purple-600 mb-6 flex items-center hover:text-purple-700"
-                  >
-                    ← Back to all therapists
-                  </button>
-                  
-                  <div className="flex items-start gap-6 mb-8">
-                    <img
-                      src={selectedTherapist.image}
-                      alt={selectedTherapist.name}
-                      className="w-32 h-32 rounded-full object-cover"
-                    />
-                    <div>
-                      <h2 className="text-2xl font-bold mb-2">{selectedTherapist.name}</h2>
-                      <p className="text-purple-600 font-medium">{selectedTherapist.title}</p>
-                      <p className="text-gray-600 mt-2">{selectedTherapist.experience}</p>
-                    </div>
-                  </div>
-
-                  <div className="space-y-6">
-                    <div>
-                      <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-                        <BookOpen className="h-5 w-5 text-purple-600" />
-                        Approach & Philosophy
-                      </h3>
-                      <p className="text-gray-700">{selectedTherapist.approach}</p>
-                    </div>
-
-                    <div>
-                      <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-                        <Award className="h-5 w-5 text-purple-600" />
-                        Education & Certifications
-                      </h3>
-                      <p className="text-gray-700 mb-2">{selectedTherapist.education}</p>
-                      <ul className="list-disc list-inside text-gray-700">
-                        {selectedTherapist.certifications.map((cert) => (
-                          <li key={cert}>{cert}</li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div>
-                      <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-                        <Star className="h-5 w-5 text-purple-600" />
-                        Areas of Focus
-                      </h3>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedTherapist.specialFocus.map((focus) => (
-                          <span
-                            key={focus}
-                            className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm"
-                          >
-                            {focus}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-                        <Users className="h-5 w-5 text-purple-600" />
-                        Session Types
-                      </h3>
-                      <div className="flex flex-wrap gap-2">
-                        {selectedTherapist.sessionTypes.map((type) => (
-                          <span
-                            key={type}
-                            className="bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-sm"
-                          >
-                            {type}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                {renderTherapistDetails()}
               </div>
-
               <div className="space-y-6">
                 <div className="bg-white p-6 rounded-2xl shadow-lg">
                   <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
@@ -546,54 +676,10 @@ function BookAppointment() {
                   />
                 </div>
 
-                {selectedDate && (
-                  <div className="bg-white p-6 rounded-2xl shadow-lg">
-                    <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                      <Clock className="h-5 w-5 text-purple-600" />
-                      Select Time
-                    </h2>
-                    {renderTimeSlots()}
-                  </div>
-                )}
-
-                {selectedDate && selectedTime && (
-                  <div className="bg-white p-6 rounded-2xl shadow-lg">
-                    <h2 className="text-xl font-semibold mb-4">Booking Summary</h2>
-                    <div className="space-y-3 mb-6">
-                      <div className="flex items-center gap-2 text-gray-700">
-                        <MessageCircle className="h-5 w-5 text-purple-600" />
-                        <span>Session with {selectedTherapist.name}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-gray-700">
-                        <Calendar className="h-5 w-5 text-purple-600" />
-                        <span>{new Date(selectedDate).toLocaleDateString('en-US', {
-                          weekday: 'long',
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        })}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-gray-700">
-                        <Clock className="h-5 w-5 text-purple-600" />
-                        <span>{selectedTime}</span>
-                      </div>
-                    </div>
-                    <button
-                      onClick={handleBooking}
-                      disabled={isBookingInProgress || bookingSuccess}
-                      className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-xl hover:from-purple-700 hover:to-pink-700 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {isBookingInProgress ? (
-                        <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      ) : (
-                        <>
-                          Confirm Booking
-                          <ChevronRight className="h-5 w-5" />
-                        </>
-                      )}
-                    </button>
-                  </div>
-                )}
+                {selectedDate && renderTimeSlots()}
+                {selectedDate && selectedTime && renderSessionTypeSelector()}
+                {selectedDate && selectedTime && selectedSessionType && renderLanguageSelector()}
+                {selectedDate && selectedTime && selectedSessionType && selectedLanguage && renderBookingSummary()}
               </div>
             </div>
           )}

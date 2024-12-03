@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Shield, Heart, Calendar, MessageSquare, Sparkles } from 'lucide-react';
+import { Shield, Heart, Calendar, MessageSquare, Sparkles, Clock, Users, Brain, BookOpen } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import ChatbotWindow from '../pages/support/ChatbotWindow';
 
 function SafetyNotice() {
   return (
@@ -70,43 +69,91 @@ function ChatbotSupport({ onOpenChat }) {
   );
 }
 
-function TherapistBooking() {
+function SessionCard({ icon: Icon, title, description, duration, color }) {
+  return (
+    <div className={`p-6 bg-gradient-to-br ${color} rounded-xl text-white hover:scale-105 transition-transform duration-300`}>
+      <div className="flex items-center gap-3 mb-3">
+        <Icon className="h-6 w-6" />
+        <h3 className="font-semibold">{title}</h3>
+      </div>
+      <p className="text-white/90 mb-4">{description}</p>
+      <div className="flex items-center gap-2">
+        <Clock className="h-4 w-4" />
+        <p className="font-semibold">{duration}</p>
+      </div>
+    </div>
+  );
+}
+
+function SessionBooking() {
   const navigate = useNavigate();
 
   const handleBooking = () => {
     navigate('/support/book-appointment');
   };
 
+  const sessionTypes = [
+    {
+      icon: Brain,
+      title: "Individual Therapy",
+      description: "One-on-one counseling tailored to your needs",
+      duration: "45 minutes",
+      color: "from-violet-500 to-purple-500"
+    },
+    {
+      icon: Users,
+      title: "Family Therapy",
+      description: "Sessions involving family members",
+      duration: "60 minutes",
+      color: "from-fuchsia-500 to-pink-500"
+    },
+    {
+      icon: Users,
+      title: "Group Therapy",
+      description: "Supportive group sessions with peers",
+      duration: "90 minutes",
+      color: "from-pink-500 to-rose-500"
+    },
+    {
+      icon: BookOpen,
+      title: "Skills Training",
+      description: "Learn practical coping strategies",
+      duration: "50 minutes",
+      color: "from-purple-500 to-indigo-500"
+    }
+  ];
+
   return (
     <div className="bg-white p-8 rounded-2xl mb-16">
-      <div className="max-w-3xl mx-auto text-center">
-        <Calendar className="h-16 w-16 text-fuchsia-600 mx-auto mb-4" />
-        <h2 className="text-3xl font-bold mb-4">Book a Session with a Therapist</h2>
-        <p className="text-gray-600 mb-8">
-          Connect with licensed professionals who specialize in teen mental health and well-being.
-        </p>
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          <div className="p-6 bg-gradient-to-br from-violet-500 to-purple-500 rounded-xl text-white">
-            <h3 className="font-semibold mb-2">Individual Session</h3>
-            <p className="text-white/90 mb-4">One-on-one therapy</p>
-            <p className="font-semibold">40 minutes</p>
-          </div>
-          <div className="p-6 bg-gradient-to-br from-fuchsia-500 to-pink-500 rounded-xl text-white">
-            <h3 className="font-semibold mb-2">Family Session</h3>
-            <p className="text-white/90 mb-4">Family therapy</p>
-            <p className="font-semibold">60 minutes</p>
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-12">
+          <Calendar className="h-16 w-16 text-fuchsia-600 mx-auto mb-4" />
+          <h2 className="text-3xl font-bold mb-4">Book a Support Session</h2>
+          <p className="text-gray-600 mb-8">
+            Choose from our range of support sessions designed to help you on your mental wellness journey
+          </p>
+        </div>
+
+        <div className="mb-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {sessionTypes.map((session, index) => (
+              <SessionCard key={index} {...session} />
+            ))}
           </div>
         </div>
-        <button 
-          onClick={handleBooking}
-          className="group bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95 relative overflow-hidden"
-        >
-          <span className="relative z-10 flex items-center justify-center gap-2">
-            Schedule Appointment
-            <Calendar className="h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
-          </span>
-          <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-fuchsia-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        </button>
+
+        <div className="text-center">
+          <button 
+            onClick={handleBooking}
+            className="group bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white px-8 py-4 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95 relative overflow-hidden"
+          >
+            <span className="relative z-10 flex items-center justify-center gap-2">
+              Schedule Session
+              <Calendar className="h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-fuchsia-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -128,9 +175,9 @@ export default function Support() {
             </div>
             <SafetyNotice />
             <CrisisSupport />
-            <TherapistBooking />
+            <SessionBooking />
             <ChatbotSupport onOpenChat={() => setIsChatOpen(true)} />
-            <ChatbotWindow isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+            {isChatOpen && <ChatbotWindow isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />}
           </div>
         </div>
       </div>

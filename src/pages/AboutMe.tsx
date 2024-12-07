@@ -102,10 +102,11 @@ const getAssessmentLevel = (score: number) => {
       level: 'mild' as const,
       description: "Your responses suggest you're managing well overall. You appear to have good coping mechanisms and emotional resilience.",
       recommendations: [
-        "Continue your current self-care practices",
-        "Consider preventive check-ins with counselors",
-        "Maintain your support network",
-        "Keep engaging in activities you enjoy"
+        "Maintain your current healthy habits and self-care practices",
+        "Keep engaging in hobbies and activities that bring you joy",
+        "Continue checking in with your support network, including family and friends",
+        "Stay proactive in managing stress with regular mindfulness or relaxation techniques",
+        "Set personal growth goals and focus on areas that contribute to long-term well-being"
       ]
     };
   } else if (percentage >= 40) {
@@ -113,11 +114,11 @@ const getAssessmentLevel = (score: number) => {
       level: 'moderate' as const,
       description: "Your responses indicate some challenges that might benefit from additional support and coping strategies.",
       recommendations: [
-        "Schedule regular counseling sessions",
-        "Practice daily mindfulness or meditation",
-        "Establish a consistent sleep schedule",
-        "Join support groups or group therapy sessions",
-        "Develop new stress management techniques"
+        "Consider regular sessions with a counselor or therapist to discuss your challenges",
+        "Incorporate mindfulness, yoga, or journaling into your daily routine for stress relief",
+        "Focus on improving your sleep habits for better mental clarity and emotional stability",
+        "Explore new stress-management techniques like deep breathing or progressive muscle relaxation",
+        "Seek guidance from a mental health professional to build a personalized coping strategy"
       ]
     };
   } else {
@@ -125,12 +126,11 @@ const getAssessmentLevel = (score: number) => {
       level: 'significant' as const,
       description: "Your responses suggest you're experiencing significant challenges. It's important to know that help is available.",
       recommendations: [
-        "Schedule an appointment with a mental health professional",
-        "Consider regular therapy sessions",
-        "Develop a support plan with professionals",
-        "Practice daily self-care routines",
-        "Stay connected with trusted friends or family",
-        "Consider joining support groups"
+        "Schedule an appointment with a licensed mental health professional to get personalized support",
+        "Explore therapy options such as cognitive-behavioral therapy (CBT) or dialectical behavior therapy (DBT)",
+        "Develop a comprehensive support plan with professionals that includes emergency contacts",
+        "Practice daily self-care routines like regular physical activity and balanced nutrition to improve mental health",
+        "Reach out to trusted family or friends regularly for emotional support"
       ]
     };
   }

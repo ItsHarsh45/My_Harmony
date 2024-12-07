@@ -41,9 +41,9 @@ const therapyOptions = [
   },
   {
     icon: Sparkles,
-    title: 'Quick Suggestions',
-    description: 'Instant activities for emotional well-being',
-    link: '/therapy/suggestions',
+    title: 'Diagnosis & Suggestions',
+    description: 'Take up diagnosis test or get quick suggestion',
+    link: '/therapy/DiagnosisHub',
     gradient: 'from-purple-50 to-fuchsia-50',
     iconColor: 'text-purple-600',
     borderColor: 'hover:border-purple-200'

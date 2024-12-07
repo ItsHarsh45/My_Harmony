@@ -16,12 +16,13 @@ import MusicTherapy from './pages/therapy/MusicTherapy';
 import { ArtTherapy } from './pages/therapy/ArtTherapy';
 import Journaling from './pages/therapy/Journaling';
 import MoodTracker from './pages/therapy/MoodTracker';
-import QuickSuggestions from './pages/therapy/QuickSuggestions';
 import BookAppointment from './pages/support/BookAppointments';
 import GameHub from './pages/therapy/GameHub';
 import MemoryMatch from './pages/therapy/games/MemoryMatch';
 import SnackAttack from './pages/therapy/games/SnackAttack';
-
+import QuickSuggestions from './pages/therapy/diagnosis/QuickSuggestions';
+import DiagnosisTest from './pages/therapy/diagnosis/DiagnosisTest';
+import DiagnosisHub from './pages/therapy/DiagnosisHub';
 function App() {
   const { setUser, setLoading } = useAuthStore();
 
@@ -53,7 +54,9 @@ function App() {
         <Route path="/therapy/journal" element={<PrivateRoute><Journaling /></PrivateRoute>} />
         <Route path="/therapy/mood" element={<PrivateRoute><MoodTracker /></PrivateRoute>} />
         <Route path="/support/book-appointment" element={<PrivateRoute><BookAppointment /></PrivateRoute>} />
-        <Route path="/therapy/suggestions" element={<PrivateRoute><QuickSuggestions /></PrivateRoute>} />
+        <Route path="/therapy/DiagnosisHub" element={<PrivateRoute><DiagnosisHub /></PrivateRoute>} />
+        <Route path="/therapy/diagnosis/diagnosis" element={<DiagnosisTest />} />
+        <Route path="/therapy/diagnosis/suggestions" element={<QuickSuggestions />} />
       </Routes>
     </Router>
   );

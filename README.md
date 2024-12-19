@@ -1,2 +1,2 @@
-# ikya-web
-https://ikya.netlify.app/
+# My-Harmony
+https://myharmony.netlify.app/

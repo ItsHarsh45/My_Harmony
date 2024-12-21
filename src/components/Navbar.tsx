@@ -38,7 +38,7 @@ export default function Navbar() {
             className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
           >
             <Brain className="h-8 w-8 text-fuchsia-600 flex-shrink-0" />
-            <span className="font-semibold text-xl text-gray-900">iKya</span>
+            <span className="font-semibold text-xl text-gray-900">My Harmony</span>
           </Link>
           
           <div className="hidden md:flex items-center space-x-8">

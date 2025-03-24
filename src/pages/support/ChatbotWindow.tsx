@@ -29,6 +29,19 @@ export default function ChatbotWindow({ isOpen, onClose }: ChatbotWindowProps) {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const isMobileDevice = useRef<boolean>(false);
+
+  // Check if the device is mobile
+  useEffect(() => {
+    isMobileDevice.current = window.innerWidth < 768; // md breakpoint is typically 768px
+    
+    const handleResize = () => {
+      isMobileDevice.current = window.innerWidth < 768;
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -45,9 +58,9 @@ export default function ChatbotWindow({ isOpen, onClose }: ChatbotWindowProps) {
     }
   }, [isLoading]);
 
-  // Add effect to handle body overflow when chat is open on mobile
+  // Modify body overflow only on mobile devices
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && isMobileDevice.current) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';

@@ -215,27 +215,27 @@ function Home() {
   return (
     <div className="bg-gradient-to-b from-violet-50 via-fuchsia-50 to-pink-50">
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 relative overflow-hidden">
+      <section className="pt-16 md:pt-32 pb-12 md:pb-20 px-4 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full">
-          <div className="animate-pulse absolute top-20 left-20 w-12 h-12 rounded-full bg-yellow-200 opacity-40" />
-          <div className="animate-bounce absolute top-40 right-32 w-8 h-8 rounded-full bg-pink-200 opacity-40" />
-          <div className="animate-pulse absolute bottom-20 left-40 w-10 h-10 rounded-full bg-purple-200 opacity-40" />
+          <div className="animate-pulse absolute top-20 left-10 md:left-20 w-8 md:w-12 h-8 md:h-12 rounded-full bg-yellow-200 opacity-40" />
+          <div className="animate-bounce absolute top-40 right-10 md:right-32 w-6 md:w-8 h-6 md:h-8 rounded-full bg-pink-200 opacity-40" />
+          <div className="animate-pulse absolute bottom-20 left-10 md:left-40 w-8 md:w-10 h-8 md:h-10 rounded-full bg-purple-200 opacity-40" />
         </div>
         
         <div className="max-w-7xl mx-auto text-center relative">
-          <h1 className="text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-transparent bg-clip-text">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 md:mb-6 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-transparent bg-clip-text">
             Hey There! 👋 Your Vibe Matters
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-10">
+          <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto mb-6 md:mb-10">
             Welcome to your cool corner of the internet! A judgment-free zone where you can be yourself, find support, and connect with others who get it. 
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
             <Link to="/signup" 
-              className="group bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-white px-8 py-4 rounded-full text-lg font-medium hover:shadow-xl transition-all duration-300 flex items-center gap-2 hover:scale-105">
-              Join the Squad <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              className="group bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-white px-5 md:px-8 py-3 md:py-4 rounded-full text-base md:text-lg font-medium hover:shadow-xl transition-all duration-300 flex items-center gap-2 hover:scale-105">
+              Join the Squad <ArrowRight className="h-4 w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link to="/signin" 
-              className="bg-white text-gray-800 px-8 py-4 rounded-full text-lg font-medium hover:bg-gray-50 transition-all duration-300 border border-gray-200 hover:shadow-xl hover:scale-105">
+              className="bg-white text-gray-800 px-5 md:px-8 py-3 md:py-4 rounded-full text-base md:text-lg font-medium hover:bg-gray-50 transition-all duration-300 border border-gray-200 hover:shadow-xl hover:scale-105">
               Sign In
             </Link>
           </div>
@@ -243,37 +243,37 @@ function Home() {
       </section>
 
       {/* Features Grid */}
-      <section className="py-20">
+      <section className="py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-gradient-to-br from-violet-50 to-fuchsia-50 p-8 rounded-3xl hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-violet-200 relative">
-              <Heart className="h-12 w-12 text-violet-600 mb-4 hover:scale-110 transition-transform" />
-              <h3 className="text-xl font-semibold mb-2">Self-Care Station</h3>
-              <p className="text-gray-600">Cool tricks to handle stress and keep your mind happy. No boring stuff, promise! 🌟</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <div className="bg-gradient-to-br from-violet-50 to-fuchsia-50 p-6 md:p-8 rounded-3xl hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-violet-200 relative">
+              <Heart className="h-10 w-10 md:h-12 md:w-12 text-violet-600 mb-3 md:mb-4 hover:scale-110 transition-transform" />
+              <h3 className="text-lg md:text-xl font-semibold mb-2">Self-Care Station</h3>
+              <p className="text-sm md:text-base text-gray-600">Cool tricks to handle stress and keep your mind happy. No boring stuff, promise! 🌟</p>
             </div>
-            <div className="bg-gradient-to-br from-fuchsia-50 to-pink-50 p-8 rounded-3xl hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-fuchsia-200 relative group">
-              <Users className="h-12 w-12 text-fuchsia-600 mb-4 hover:scale-110 transition-transform" />
-              <h3 className="text-xl font-semibold mb-2">Therapeutic Activities ✨</h3>
-              <p className="text-gray-600">Discover various ways to express yourself and find inner peace</p>
+            <div className="bg-gradient-to-br from-fuchsia-50 to-pink-50 p-6 md:p-8 rounded-3xl hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-fuchsia-200 relative group">
+              <Users className="h-10 w-10 md:h-12 md:w-12 text-fuchsia-600 mb-3 md:mb-4 hover:scale-110 transition-transform" />
+              <h3 className="text-lg md:text-xl font-semibold mb-2">Therapeutic Activities ✨</h3>
+              <p className="text-sm md:text-base text-gray-600">Discover various ways to express yourself and find inner peace</p>
               <Link to="/therapy" className="absolute inset-0 z-10">
                 <span className="sr-only">Explore Therapeutic Activities</span>
               </Link>
               <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="flex items-center gap-1 text-fuchsia-600 hover:text-fuchsia-800 transition-colors">
-                  <ChevronRight className="h-5 w-5 animate-pulse" />
+                  <ChevronRight className="h-4 w-4 md:h-5 md:w-5 animate-pulse" />
                 </div>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-pink-50 to-rose-50 p-8 rounded-3xl hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-pink-200 relative group">
-              <Star className="h-12 w-12 text-pink-600 mb-4 hover:scale-110 transition-transform" />
-              <h3 className="text-xl font-semibold mb-2">Pro Help (When You Need It)</h3>
-              <p className="text-gray-600">Talk to friendly counselors who specialize in teen life. They're actually pretty cool! 💫</p>
+            <div className="bg-gradient-to-br from-pink-50 to-rose-50 p-6 md:p-8 rounded-3xl hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-pink-200 relative group">
+              <Star className="h-10 w-10 md:h-12 md:w-12 text-pink-600 mb-3 md:mb-4 hover:scale-110 transition-transform" />
+              <h3 className="text-lg md:text-xl font-semibold mb-2">Pro Help (When You Need It)</h3>
+              <p className="text-sm md:text-base text-gray-600">Talk to friendly counselors who specialize in teen life. They're actually pretty cool! 💫</p>
               <Link to="/support" className="absolute inset-0 z-10">
                 <span className="sr-only">Explore Professional Help</span>
               </Link>
               <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="flex items-center gap-1 text-pink-600 hover:text-pink-800 transition-colors">
-                  <ChevronRight className="h-5 w-5 animate-pulse" />
+                  <ChevronRight className="h-4 w-4 md:h-5 md:w-5 animate-pulse" />
                 </div>
               </div>
             </div>
@@ -282,45 +282,45 @@ function Home() {
       </section>
 
       {/* Wellness Section */}
-      <section className="py-20">
+      <section className="py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center gap-12">
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             <div className="flex-1">
-              <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-transparent bg-clip-text">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-transparent bg-clip-text">
                 Daily Vibe Check ✨
               </h2>
-              <p className="text-gray-600 mb-8">
+              <p className="text-sm md:text-base text-gray-600 mb-6 md:mb-8">
                 Track your mood, level up your habits, and unlock achievements! It's like a game, but for your wellbeing.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm border border-violet-100">
-                  <BookOpen className="h-5 w-5 text-violet-600" />
-                  <span className="text-violet-600">Daily Journal</span>
+              <div className="flex flex-wrap gap-2 md:gap-4">
+                <div className="flex items-center gap-1 md:gap-2 bg-white px-3 md:px-6 py-2 md:py-3 rounded-full shadow-sm border border-violet-100">
+                  <BookOpen className="h-4 w-4 md:h-5 md:w-5 text-violet-600" />
+                  <span className="text-sm md:text-base text-violet-600">Daily Journal</span>
                 </div>
-                <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm border border-fuchsia-100">
-                  <Music className="h-5 w-5 text-fuchsia-600" />
-                  <span className="text-fuchsia-600">Mood Mix</span>
+                <div className="flex items-center gap-1 md:gap-2 bg-white px-3 md:px-6 py-2 md:py-3 rounded-full shadow-sm border border-fuchsia-100">
+                  <Music className="h-4 w-4 md:h-5 md:w-5 text-fuchsia-600" />
+                  <span className="text-sm md:text-base text-fuchsia-600">Mood Mix</span>
                 </div>
-                <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm border border-pink-100">
-                  <Gamepad className="h-5 w-5 text-pink-600" />
-                  <span className="text-pink-600">Mind Games</span>
+                <div className="flex items-center gap-1 md:gap-2 bg-white px-3 md:px-6 py-2 md:py-3 rounded-full shadow-sm border border-pink-100">
+                  <Gamepad className="h-4 w-4 md:h-5 md:w-5 text-pink-600" />
+                  <span className="text-sm md:text-base text-pink-600">Mind Games</span>
                 </div>
-                <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm border border-violet-100">
-                  <Palette className="h-5 w-5 text-violet-600" />
-                  <span className="text-violet-600">Art Therapy</span>
+                <div className="flex items-center gap-1 md:gap-2 bg-white px-3 md:px-6 py-2 md:py-3 rounded-full shadow-sm border border-violet-100">
+                  <Palette className="h-4 w-4 md:h-5 md:w-5 text-violet-600" />
+                  <span className="text-sm md:text-base text-violet-600">Art Therapy</span>
                 </div>
-                <div className="flex items-center gap-2 bg-white px-6 py-3 rounded-full shadow-sm border border-fuchsia-100">
-                  <Lightbulb className="h-5 w-5 text-fuchsia-600" />
-                  <span className="text-fuchsia-600">Personal Suggestions</span>
+                <div className="flex items-center gap-1 md:gap-2 bg-white px-3 md:px-6 py-2 md:py-3 rounded-full shadow-sm border border-fuchsia-100">
+                  <Lightbulb className="h-4 w-4 md:h-5 md:w-5 text-fuchsia-600" />
+                  <span className="text-xs md:text-base text-fuchsia-600">Personal Suggestions</span>
                 </div>
               </div>
             </div>
-            <div className="flex-1 relative">
+            <div className="flex-1 relative mt-8 md:mt-0">
               <div className="absolute -inset-1 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 rounded-2xl blur opacity-25" />
               <img 
                 src="https://lafayettefamilyymca.org/wp-content/uploads/2022/01/143021920_m-1.jpg"
                 alt="Self_Care/Self_Love"
-                className="relative rounded-2xl shadow-xl"
+                className="relative rounded-2xl shadow-xl w-full"
               />
             </div>
           </div>
@@ -328,25 +328,25 @@ function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 py-8">
+      <footer className="bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 py-6 md:py-8">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-white">
             {/* Brand Section */}
             <div className="text-center md:text-left">
-              <h3 className="font-bold text-xl">My Harmony</h3>
-              <p className="text-white/80 mt-2">
+              <h3 className="font-bold text-lg md:text-xl">My Harmony</h3>
+              <p className="text-white/80 mt-2 text-sm md:text-base">
                 A safe space for self-discovery, growth, and connection.
               </p>
             </div>
 
             {/* Contact Info */}
             <div className="text-center md:text-right">
-              <p className="text-white/80">
+              <p className="text-white/80 text-sm md:text-base">
                 Created by <span className="font-bold text-white">Harsh Kemali</span>
               </p>
               <a 
                 href="mailto:harshkemali123@gmail.com" 
-                className="text-white/80 hover:text-white hover:underline block mt-1"
+                className="text-white/80 hover:text-white hover:underline block mt-1 text-sm md:text-base"
               >
                 harshkemali123@gmail.com
               </a>
@@ -365,7 +365,7 @@ function Home() {
                   </svg>
                 </a>
               </div>
-              <p className="text-sm text-white/60 mt-3">
+              <p className="text-xs md:text-sm text-white/60 mt-3">
                 © {new Date().getFullYear()} All Rights Reserved
               </p>
             </div>

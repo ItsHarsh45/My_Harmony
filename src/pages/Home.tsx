@@ -215,27 +215,27 @@ function Home() {
   return (
     <div className="bg-gradient-to-b from-violet-50 via-fuchsia-50 to-pink-50">
       {/* Hero Section */}
-      <section className="pt-10 md:pt-32 pb-10 md:pb-20 px-3 md:px-4 relative overflow-hidden">
+      <section className="pt-16 md:pt-32 pb-12 md:pb-20 px-4 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full">
-          <div className="animate-pulse absolute top-10 md:top-20 left-5 md:left-20 w-6 md:w-12 h-6 md:h-12 rounded-full bg-yellow-200 opacity-40" />
-          <div className="animate-bounce absolute top-24 md:top-40 right-5 md:right-32 w-4 md:w-8 h-4 md:h-8 rounded-full bg-pink-200 opacity-40" />
-          <div className="animate-pulse absolute bottom-10 md:bottom-20 left-8 md:left-40 w-6 md:w-10 h-6 md:h-10 rounded-full bg-purple-200 opacity-40" />
+          <div className="animate-pulse absolute top-20 left-10 md:left-20 w-8 md:w-12 h-8 md:h-12 rounded-full bg-yellow-200 opacity-40" />
+          <div className="animate-bounce absolute top-40 right-10 md:right-32 w-6 md:w-8 h-6 md:h-8 rounded-full bg-pink-200 opacity-40" />
+          <div className="animate-pulse absolute bottom-20 left-10 md:left-40 w-8 md:w-10 h-8 md:h-10 rounded-full bg-purple-200 opacity-40" />
         </div>
         
         <div className="max-w-7xl mx-auto text-center relative">
-          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-3 md:mb-6 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-transparent bg-clip-text">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 md:mb-6 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-transparent bg-clip-text">
             Hey There! 👋 Your Vibe Matters
           </h1>
-          <p className="text-sm sm:text-base md:text-xl text-gray-600 max-w-2xl mx-auto mb-5 md:mb-10 px-2">
+          <p className="text-base md:text-xl text-gray-600 max-w-2xl mx-auto mb-6 md:mb-10">
             Welcome to your cool corner of the internet! A judgment-free zone where you can be yourself, find support, and connect with others who get it. 
           </p>
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-3 md:gap-4">
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
             <Link to="/signup" 
-              className="w-full sm:w-auto group bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-white px-5 md:px-8 py-2.5 md:py-4 rounded-full text-base md:text-lg font-medium hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105">
+              className="group bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-white px-5 md:px-8 py-3 md:py-4 rounded-full text-base md:text-lg font-medium hover:shadow-xl transition-all duration-300 flex items-center gap-2 hover:scale-105">
               Join the Squad <ArrowRight className="h-4 w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link to="/signin" 
-              className="w-full sm:w-auto bg-white text-gray-800 px-5 md:px-8 py-2.5 md:py-4 rounded-full text-base md:text-lg font-medium hover:bg-gray-50 transition-all duration-300 border border-gray-200 hover:shadow-xl hover:scale-105">
+              className="bg-white text-gray-800 px-5 md:px-8 py-3 md:py-4 rounded-full text-base md:text-lg font-medium hover:bg-gray-50 transition-all duration-300 border border-gray-200 hover:shadow-xl hover:scale-105">
               Sign In
             </Link>
           </div>
@@ -243,35 +243,35 @@ function Home() {
       </section>
 
       {/* Features Grid */}
-      <section className="py-8 md:py-20 px-3 md:px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-8">
-            <div className="bg-gradient-to-br from-violet-50 to-fuchsia-50 p-5 md:p-8 rounded-3xl hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-violet-200 relative">
-              <Heart className="h-8 w-8 md:h-12 md:w-12 text-violet-600 mb-2 md:mb-4 hover:scale-110 transition-transform" />
-              <h3 className="text-base md:text-xl font-semibold mb-2">Self-Care Station</h3>
-              <p className="text-xs sm:text-sm md:text-base text-gray-600">Cool tricks to handle stress and keep your mind happy. No boring stuff, promise! 🌟</p>
+      <section className="py-12 md:py-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <div className="bg-gradient-to-br from-violet-50 to-fuchsia-50 p-6 md:p-8 rounded-3xl hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-violet-200 relative">
+              <Heart className="h-10 w-10 md:h-12 md:w-12 text-violet-600 mb-3 md:mb-4 hover:scale-110 transition-transform" />
+              <h3 className="text-lg md:text-xl font-semibold mb-2">Self-Care Station</h3>
+              <p className="text-sm md:text-base text-gray-600">Cool tricks to handle stress and keep your mind happy. No boring stuff, promise! 🌟</p>
             </div>
-            <div className="bg-gradient-to-br from-fuchsia-50 to-pink-50 p-5 md:p-8 rounded-3xl hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-fuchsia-200 relative group">
-              <Users className="h-8 w-8 md:h-12 md:w-12 text-fuchsia-600 mb-2 md:mb-4 hover:scale-110 transition-transform" />
-              <h3 className="text-base md:text-xl font-semibold mb-2">Therapeutic Activities ✨</h3>
-              <p className="text-xs sm:text-sm md:text-base text-gray-600">Discover various ways to express yourself and find inner peace</p>
+            <div className="bg-gradient-to-br from-fuchsia-50 to-pink-50 p-6 md:p-8 rounded-3xl hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-fuchsia-200 relative group">
+              <Users className="h-10 w-10 md:h-12 md:w-12 text-fuchsia-600 mb-3 md:mb-4 hover:scale-110 transition-transform" />
+              <h3 className="text-lg md:text-xl font-semibold mb-2">Therapeutic Activities ✨</h3>
+              <p className="text-sm md:text-base text-gray-600">Discover various ways to express yourself and find inner peace</p>
               <Link to="/therapy" className="absolute inset-0 z-10">
                 <span className="sr-only">Explore Therapeutic Activities</span>
               </Link>
-              <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="flex items-center gap-1 text-fuchsia-600 hover:text-fuchsia-800 transition-colors">
                   <ChevronRight className="h-4 w-4 md:h-5 md:w-5 animate-pulse" />
                 </div>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-pink-50 to-rose-50 p-5 md:p-8 rounded-3xl hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-pink-200 relative group">
-              <Star className="h-8 w-8 md:h-12 md:w-12 text-pink-600 mb-2 md:mb-4 hover:scale-110 transition-transform" />
-              <h3 className="text-base md:text-xl font-semibold mb-2">Pro Help (When You Need It)</h3>
-              <p className="text-xs sm:text-sm md:text-base text-gray-600">Talk to friendly counselors who specialize in teen life. They're actually pretty cool! 💫</p>
+            <div className="bg-gradient-to-br from-pink-50 to-rose-50 p-6 md:p-8 rounded-3xl hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-pink-200 relative group">
+              <Star className="h-10 w-10 md:h-12 md:w-12 text-pink-600 mb-3 md:mb-4 hover:scale-110 transition-transform" />
+              <h3 className="text-lg md:text-xl font-semibold mb-2">Pro Help (When You Need It)</h3>
+              <p className="text-sm md:text-base text-gray-600">Talk to friendly counselors who specialize in teen life. They're actually pretty cool! 💫</p>
               <Link to="/support" className="absolute inset-0 z-10">
                 <span className="sr-only">Explore Professional Help</span>
               </Link>
-              <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="flex items-center gap-1 text-pink-600 hover:text-pink-800 transition-colors">
                   <ChevronRight className="h-4 w-4 md:h-5 md:w-5 animate-pulse" />
                 </div>
@@ -282,45 +282,45 @@ function Home() {
       </section>
 
       {/* Wellness Section */}
-      <section className="py-8 md:py-20 px-3 md:px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12">
+      <section className="py-12 md:py-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             <div className="flex-1">
-              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-6 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-transparent bg-clip-text">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-transparent bg-clip-text">
                 Daily Vibe Check ✨
               </h2>
-              <p className="text-xs sm:text-sm md:text-base text-gray-600 mb-4 md:mb-8">
+              <p className="text-sm md:text-base text-gray-600 mb-6 md:mb-8">
                 Track your mood, level up your habits, and unlock achievements! It's like a game, but for your wellbeing.
               </p>
               <div className="flex flex-wrap gap-2 md:gap-4">
-                <div className="flex items-center gap-1 md:gap-2 bg-white px-2 sm:px-3 md:px-6 py-1.5 md:py-3 rounded-full shadow-sm border border-violet-100">
-                  <BookOpen className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 text-violet-600" />
-                  <span className="text-xs sm:text-sm md:text-base text-violet-600">Daily Journal</span>
+                <div className="flex items-center gap-1 md:gap-2 bg-white px-3 md:px-6 py-2 md:py-3 rounded-full shadow-sm border border-violet-100">
+                  <BookOpen className="h-4 w-4 md:h-5 md:w-5 text-violet-600" />
+                  <span className="text-sm md:text-base text-violet-600">Daily Journal</span>
                 </div>
-                <div className="flex items-center gap-1 md:gap-2 bg-white px-2 sm:px-3 md:px-6 py-1.5 md:py-3 rounded-full shadow-sm border border-fuchsia-100">
-                  <Music className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 text-fuchsia-600" />
-                  <span className="text-xs sm:text-sm md:text-base text-fuchsia-600">Mood Mix</span>
+                <div className="flex items-center gap-1 md:gap-2 bg-white px-3 md:px-6 py-2 md:py-3 rounded-full shadow-sm border border-fuchsia-100">
+                  <Music className="h-4 w-4 md:h-5 md:w-5 text-fuchsia-600" />
+                  <span className="text-sm md:text-base text-fuchsia-600">Mood Mix</span>
                 </div>
-                <div className="flex items-center gap-1 md:gap-2 bg-white px-2 sm:px-3 md:px-6 py-1.5 md:py-3 rounded-full shadow-sm border border-pink-100">
-                  <Gamepad className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 text-pink-600" />
-                  <span className="text-xs sm:text-sm md:text-base text-pink-600">Mind Games</span>
+                <div className="flex items-center gap-1 md:gap-2 bg-white px-3 md:px-6 py-2 md:py-3 rounded-full shadow-sm border border-pink-100">
+                  <Gamepad className="h-4 w-4 md:h-5 md:w-5 text-pink-600" />
+                  <span className="text-sm md:text-base text-pink-600">Mind Games</span>
                 </div>
-                <div className="flex items-center gap-1 md:gap-2 bg-white px-2 sm:px-3 md:px-6 py-1.5 md:py-3 rounded-full shadow-sm border border-violet-100">
-                  <Palette className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 text-violet-600" />
-                  <span className="text-xs sm:text-sm md:text-base text-violet-600">Art Therapy</span>
+                <div className="flex items-center gap-1 md:gap-2 bg-white px-3 md:px-6 py-2 md:py-3 rounded-full shadow-sm border border-violet-100">
+                  <Palette className="h-4 w-4 md:h-5 md:w-5 text-violet-600" />
+                  <span className="text-sm md:text-base text-violet-600">Art Therapy</span>
                 </div>
-                <div className="flex items-center gap-1 md:gap-2 bg-white px-2 sm:px-3 md:px-6 py-1.5 md:py-3 rounded-full shadow-sm border border-fuchsia-100">
-                  <Lightbulb className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 text-fuchsia-600" />
-                  <span className="text-xs sm:text-xs md:text-base text-fuchsia-600">Personal Suggestions</span>
+                <div className="flex items-center gap-1 md:gap-2 bg-white px-3 md:px-6 py-2 md:py-3 rounded-full shadow-sm border border-fuchsia-100">
+                  <Lightbulb className="h-4 w-4 md:h-5 md:w-5 text-fuchsia-600" />
+                  <span className="text-xs md:text-base text-fuchsia-600">Personal Suggestions</span>
                 </div>
               </div>
             </div>
-            <div className="flex-1 relative mt-6 md:mt-0">
+            <div className="flex-1 relative mt-8 md:mt-0">
               <div className="absolute -inset-1 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 rounded-2xl blur opacity-25" />
               <img 
-                src="/api/placeholder/400/300"
-                alt="Self Care"
-                className="relative rounded-2xl shadow-xl w-full object-cover h-48 sm:h-64 md:h-auto"
+                src="https://lafayettefamilyymca.org/wp-content/uploads/2022/01/143021920_m-1.jpg"
+                alt="Self_Care/Self_Love"
+                className="relative rounded-2xl shadow-xl w-full"
               />
             </div>
           </div>
@@ -328,44 +328,44 @@ function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 py-5 md:py-8 px-3 md:px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-white">
+      <footer className="bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 py-6 md:py-8">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-white">
             {/* Brand Section */}
             <div className="text-center md:text-left">
-              <h3 className="font-bold text-base md:text-xl">My Harmony</h3>
-              <p className="text-white/80 mt-1 md:mt-2 text-xs sm:text-sm md:text-base">
+              <h3 className="font-bold text-lg md:text-xl">My Harmony</h3>
+              <p className="text-white/80 mt-2 text-sm md:text-base">
                 A safe space for self-discovery, growth, and connection.
               </p>
             </div>
 
             {/* Contact Info */}
             <div className="text-center md:text-right">
-              <p className="text-white/80 text-xs sm:text-sm md:text-base">
+              <p className="text-white/80 text-sm md:text-base">
                 Created by <span className="font-bold text-white">Harsh Kemali</span>
               </p>
               <a 
                 href="mailto:harshkemali123@gmail.com" 
-                className="text-white/80 hover:text-white hover:underline block mt-1 text-xs sm:text-sm md:text-base"
+                className="text-white/80 hover:text-white hover:underline block mt-1 text-sm md:text-base"
               >
                 harshkemali123@gmail.com
               </a>
               {/* Social Links */}
-              <div className="flex justify-center md:justify-end gap-3 md:gap-4 mt-2 md:mt-3">
+              <div className="flex justify-center md:justify-end gap-4 mt-3">
                 <a href="https://github.com/ItsHarsh45" className="text-white/80 hover:text-white transition-colors">
                   <span className="sr-only">GitHub</span>
-                  <svg className="h-4 w-4 md:h-5 md:w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
                   </svg>
                 </a>
                 <a href="https://www.instagram.com/driftinalong5?utm_source=qr" className="text-white/80 hover:text-white transition-colors">
                   <span className="sr-only">Instagram</span>
-                  <svg className="h-4 w-4 md:h-5 md:w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                     <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clipRule="evenodd" />
                   </svg>
                 </a>
               </div>
-              <p className="text-xxs sm:text-xs md:text-sm text-white/60 mt-2 md:mt-3">
+              <p className="text-xs md:text-sm text-white/60 mt-3">
                 © {new Date().getFullYear()} All Rights Reserved
               </p>
             </div>

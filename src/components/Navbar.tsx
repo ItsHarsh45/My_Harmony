@@ -9,6 +9,7 @@ export default function Navbar() {
   const { user, logout } = useAuthStore();
   const profileRef = useRef(null);
   const mobileMenuRef = useRef(null);
+  const mobileButtonRef = useRef(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -21,7 +22,15 @@ export default function Navbar() {
       if (isProfileOpen && profileRef.current && !profileRef.current.contains(event.target)) {
         setIsProfileOpen(false);
       }
-      if (isMobileMenuOpen && mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+      
+      // The issue is here - we need to exclude the button from the check
+      if (
+        isMobileMenuOpen && 
+        mobileMenuRef.current && 
+        !mobileMenuRef.current.contains(event.target) &&
+        mobileButtonRef.current && 
+        !mobileButtonRef.current.contains(event.target)
+      ) {
         setIsMobileMenuOpen(false);
       }
     };
@@ -158,6 +167,7 @@ export default function Navbar() {
             )}
             
             <button
+              ref={mobileButtonRef}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-fuchsia-600 hover:bg-fuchsia-50 focus:outline-none transition"
             >

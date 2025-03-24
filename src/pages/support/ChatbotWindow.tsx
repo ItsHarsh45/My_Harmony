@@ -45,6 +45,19 @@ export default function ChatbotWindow({ isOpen, onClose }: ChatbotWindowProps) {
     }
   }, [isLoading]);
 
+  // Add effect to handle body overflow when chat is open on mobile
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isOpen]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
@@ -87,7 +100,7 @@ export default function ChatbotWindow({ isOpen, onClose }: ChatbotWindowProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed bottom-36 right-12 w-96 h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-slide-up z-50">
+    <div className="fixed inset-0 md:inset-auto md:bottom-36 md:right-12 md:w-96 md:h-[600px] w-full h-full bg-white rounded-2xl md:rounded-2xl shadow-2xl flex flex-col overflow-hidden z-50">
       <div className="absolute -inset-[2px] bg-gradient-to-r from-fuchsia-600/30 via-pink-500/30 to-fuchsia-600/30 rounded-2xl blur-lg opacity-75 animate-glow-pulse"></div>
       
       <div className="relative flex flex-col h-full bg-white rounded-2xl overflow-hidden">
@@ -99,6 +112,7 @@ export default function ChatbotWindow({ isOpen, onClose }: ChatbotWindowProps) {
           <button 
             onClick={onClose}
             className="p-1 hover:bg-white/20 rounded-full transition-colors"
+            aria-label="Close chat"
           >
             <X className="h-5 w-5" />
           </button>
@@ -147,6 +161,7 @@ export default function ChatbotWindow({ isOpen, onClose }: ChatbotWindowProps) {
               type="submit"
               disabled={isLoading || !input.trim()}
               className="p-2 bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white rounded-full hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:shadow-lg"
+              aria-label="Send message"
             >
               <Send className="h-5 w-5" />
             </button>
@@ -154,5 +169,31 @@ export default function ChatbotWindow({ isOpen, onClose }: ChatbotWindowProps) {
         </form>
       </div>
     </div>
+  );
+}
+
+// Optional: Animation component for the chatbot
+export function AnimateGlowPulse() {
+  return (
+    <style jsx global>{`
+      @keyframes glow-pulse {
+        0% { opacity: 0.5; }
+        50% { opacity: 0.8; }
+        100% { opacity: 0.5; }
+      }
+      
+      .animate-glow-pulse {
+        animation: glow-pulse 3s infinite;
+      }
+      
+      @keyframes slide-up {
+        from { transform: translateY(100%); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      
+      .animate-slide-up {
+        animation: slide-up 0.3s ease-out forwards;
+      }
+    `}</style>
   );
 }
